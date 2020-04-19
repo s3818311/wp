@@ -1,1 +1,272 @@
-/* Insert your styles here */
+html {
+  background-color: #d4d4d4;
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+}
+div,
+p,
+span {
+  font-family: Sen;
+  font-size: 37px;
+}
+article {
+  padding: 2% 3% 0 3%;
+}
+img {
+  user-select: none;
+}
+header {
+  /* Image sourced from 
+  https://pixabay.com/photos/admission-coupon-admit-carnival-2974645/ 
+  educational purposes only*/
+  background-image: url(../media/header_bg.jpg);
+  background-position: center;
+  padding: 2% 0;
+}
+header > div > div:first-child {
+  text-align: right;
+}
+header img {
+  width: 350px;
+}
+header div:last-child {
+  font-family: "Pare Reverse";
+  font-size: 250px;
+  font-weight: bolder;
+  letter-spacing: 6px;
+  color: #f9ed69;
+  text-align: center;
+}
+#navigation {
+  background-color: #000;
+}
+#navigation a {
+  color: #f9ed69;
+}
+#navigation a {
+  transition: background-color 0.15s, color 0.1s;
+  text-align: center;
+}
+#navigation a:hover {
+  background-color: #f9ed69;
+  color: #000;
+}
+#navbar a:active,
+#navbar a:link,
+#navbar a:visited {
+  text-decoration: none;
+}
+#navbar div div {
+  text-decoration: none;
+  color: #fff;
+  font-size: 45px;
+}
+#navbar div a:hover div {
+  color: #000;
+}
+main article {
+  min-height: 100vh;
+  padding: 10px;
+}
+.anchor {
+  visibility: hidden;
+  top: -70px;
+  display: block;
+  position: relative;
+}
+#section1 {
+  /* Image sourced from profurn.com.au - educational purpose only */
+  background-image: url(../media/seat_background.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+#section1-content-wrapper {
+  background-color: rgba(240, 248, 255, 0.74);
+  padding-top: 1%;
+  backdrop-filter: blur(5px);
+}
+#section1-content-wrapper p {
+  margin: 0 3% 0 4%;
+}
+#section1-content-wrapper span {
+  font-size: 60px;
+}
+#section1 a {
+  transition: color 0.15s;
+}
+#section1 a:active,
+#section1 a:link,
+#section1 a:visited {
+  text-decoration: none;
+  color: #00f;
+}
+#section1 a:hover {
+  text-decoration: none;
+  color: #3b778b;
+}
+#seatings div {
+  text-align: center;
+}
+#seatings div p {
+  font-size: 1.35em;
+  color: #b83b5e;
+}
+#seatings img {
+  width: 40vw;
+}
+#section2 {
+  background-image: linear-gradient(#b83b5e, #6a2c70);
+  text-align: center;
+  position: relative;
+}
+#section2 > p {
+  font-size: 60px;
+  margin: 0;
+  padding-bottom: 2%;
+}
+#section2 span {
+  font-size: 15px;
+  font-style: italic;
+}
+.ticket {
+  text-align: center;
+  background-color: #f08a5d;
+  border-radius: 10px;
+}
+.ticket-name {
+  font-size: 52px;
+  overflow-wrap: break-word;
+}
+.price-special {
+  font-size: 47px;
+  margin: 0;
+  font-style: italic;
+  color: #b83b5e;
+}
+.first-class {
+  background-color: #f9ed69;
+}
+.price-normal {
+  font-size: 35px;
+  margin: 0;
+}
+#special {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+#anchor3 {
+  visibility: visible;
+}
+#section3 {
+  margin: 0;
+  padding: 0;
+  background-color: #f08a5d;
+  padding-top: 2%;
+}
+#section3 > p {
+  text-align: center;
+  font-size: 60px;
+}
+#movies {
+  background-color: #f08a5d;
+  padding-bottom: 2%;
+}
+.movie {
+  height: 100%;
+  padding: 1%;
+}
+#poster {
+  height: 100%;
+  text-align: center;
+}
+#poster img {
+  width: 100%;
+  border: 2px solid #000;
+  box-shadow: 5px 10px #949494;
+}
+.movie-info p {
+  text-align: center;
+  font-size: 45px;
+  text-shadow: 1px 1px #000;
+}
+.movie-info p + p {
+  font-size: 30px;
+  line-height: 0;
+}
+.movie-info table {
+  font-size: 32px;
+  margin: auto;
+}
+.movie-info table tr {
+  border-bottom: 1px solid #000;
+}
+.movie-info table tr:last-child {
+  border-bottom: none;
+}
+.movie-info td + td {
+  padding-left: 2em;
+}
+#synopsis {
+  background-color: #f9ed69;
+  padding-bottom: 3%;
+}
+#synopsis #info {
+  padding: 2%;
+}
+#synopsis #info > p span {
+  font-size: 45px;
+}
+#synopsis #info p span:first-child {
+  float: left;
+}
+#synopsis #info p span:last-child {
+  float: right;
+}
+#synopsis #info p:last-child {
+  text-align: justify;
+}
+.synopsis-row {
+  padding-right: 1%;
+}
+.booking-form {
+  text-align: center;
+}
+.booking-date {
+  display: inline-block;
+  user-select: none;
+  position: relative;
+  top: -2em;
+}
+.booking-date label {
+  padding: 0 10%;
+}
+.booking-date input {
+  visibility: hidden;
+}
+.booking-date label {
+  transition: background-color 0.5s, box-shadow 0.5s;
+}
+.booking-date input[type="radio"]:checked + label {
+  background-color: #d45579;
+  box-shadow: 5px 10px #949494;
+}
+footer {
+  background-color: #e2e2e2;
+}
+footer div {
+  font-size: 20px;
+}
+/* 
+Parallax Scrolling Effect adapted from W3Schools
+Source: https://www.w3schools.com/howto/howto_css_parallax.asp 
+*/
+.parallax {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
