@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Assignment 3</title>
+
+    <!-- Linking Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script async defer src='script.js'></script>
+
+    <!-- Keep wireframe.css for debugging, add your css to style.css -->
+    <link id='wireframecss' type="text/css" rel="stylesheet" href="../wireframe.css" disabled>
+    <link id='stylecss' type="text/css" rel="stylesheet" href="style.css">
+
+    <!-- Font imports -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://db.onlinewebfonts.com/c/3342cca944af04fdd5cd5d538f3f324f?family=Pare+Reverse" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Sen&display=swap" rel="stylesheet">
+
+    <script src='../wireframe.js'></script>
+</head>
+
+<body>
+
+    <header class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-lg-4">
+                <img src="../media/cinema_logo.png" alt="Cinema Logo">
+            </div>
+            <div class="col-lg-8">Cinemax</div>
+        </div>
+    </header>
+
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top" id="navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarCollapse">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="#anchor1">About Us</a>
+                <a class="nav-item nav-link" href="#anchor2">Pricing</a>
+                <a class="nav-item nav-link" href="#anchor3">Now Showing</a>
+            </div>
+    </nav>
+
+    <main>
+        <div class="anchor" id="anchor1"></div>
+        <article id="section1" class="parallax">
+            <div id="section1-content-wrapper" class="container-fluid">
+                <div class="row align-items-center">
+                    <p><span>The wait is over!</span></p>
+                    <p>The cinema has reopened after extensive improvements and renovations.</p>
+                    <p>
+                        The projection and sound systems are upgraded with 3D Dolby Vision projection and Dolby Atmos sound.
+                        For more information about Dolby,
+                        <a href="https://www.dolby.com/us/en/cinema" target="_blank">click here</a>.
+                    </p>
+                    <p>There are new seats available with reclinable first class seats and standard seats.</p>
+                </div>
+                <div id='seatings' class="row align-items-start">
+                    <div class="col-lg-6">
+                        <p>First class seating</p>
+                        <img src="../media/first_class_seat.png" alt="First class seat">
+                    </div>
+                    <div class="col-lg-6">
+                        <p>Standard seating</p>
+                        <img src="../media/standard_seat.png" alt="Standard seat" id="standard-seat">
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <div class="anchor" id="anchor2"></div>
+        <article id="section2">
+            <p>PRICING</p>
+            <div id="pricing-table" class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-lg-4 px-0">
+                        <div class="ticket first-class m-1 py-4">
+                            <p class="ticket-name">First Class Adult</p>
+                            <p class="price-special FCA"></p>
+                            <p class="price-normal FCA"></p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 px-0">
+                        <div class="ticket first-class m-1 py-4">
+                            <p class="ticket-name">First Class Concession</p>
+                            <p class="price-special FCP"></p>
+                            <p class="price-normal FCP"></p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 px-0">
+                        <div class="ticket first-class m-1 py-4">
+                            <p class="ticket-name">First Class Child</p>
+                            <p class="price-special FCC"></p>
+                            <p class="price-normal FCC"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-lg-4 px-0">
+                        <div class="ticket m-1 py-4">
+                            <p class="ticket-name">Standard Adult</p>
+                            <p class="price-special STA"></p>
+                            <p class="price-normal STA"></p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 px-0">
+                        <div class="ticket m-1 py-4">
+                            <p class="ticket-name">Standard Concession</p>
+                            <p class="price-special STP"></p>
+                            <p class="price-normal STP"></p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 px-0">
+                        <div class="ticket m-1 py-4">
+                            <p class="ticket-name">Standard Child</p>
+                            <p class="price-special STC"></p>
+                            <p class="price-normal STC"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="special">
+                <span>* Only applied on Monday, Wednesday and 12pm on Weekdays</span>
+            </div>
+        </article>
+
+        <div class="anchor" id="anchor3"></div>
+        <article id="section3">
+            <p>NOW SHOWING</p>
+            <div id="movies" class="container-fluid">
+
+                <div class="row align-items-center">
+                    <div class="movie col-lg-6">
+                        <div class="row align-items-center">
+                            <div id="poster" class="col-sm-5"><img src="../media/Avengers_Endgame_poster.jpg" alt="Avengers: Endgame" id='movieACT'></div>
+                            <div class="movie-info col-sm-7">
+                                <p>Avengers: Endgame</p>
+                                <p>(M)</p>
+                                <table>
+                                    <tr>
+                                        <td>Monday</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tuesday</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Wednesday</td>
+                                        <td>21:00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Thursday</td>
+                                        <td>21:00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Friday</td>
+                                        <td>21:00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Saturday</td>
+                                        <td>18:00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sunday</td>
+                                        <td>18:00</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="movie col-lg-6">
+                        <div class="row align-items-center">
+                            <div id="poster" class="col-sm-5"><img src="../media/Top_End_Wedding_poster.jpg" alt="Top End Wedding" id='movieRMC'></div>
+                            <div class="movie-info col-sm-7">
+                                <p>Top End Wedding</p>
+                                <p>(M)</p>
+                                <table>
+                                    <tr>
+                                        <td>Monday</td>
+                                        <td>18:00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tuesday</td>
+                                        <td>18:00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Wednesday</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Thursday</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Friday</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Saturday</td>
+                                        <td>15:00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sunday</td>
+                                        <td>15:00</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row align-items-center">
+                    <div class="movie col-lg-6">
+                        <div class="row align-items-center">
+                            <div id="poster" class="col-sm-5"><img src="../media/Dumbo_poster.png" alt="Dumbo" id='movieANM'></div>
+                            <div class="movie-info col-sm-7">
+                                <p>Dumbo</p>
+                                <p>(PG)</p>
+                                <table>
+                                    <tr>
+                                        <td>Monday</td>
+                                        <td>12:00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tuesday</td>
+                                        <td>12:00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Wednesday</td>
+                                        <td>18:00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Thursday</td>
+                                        <td>18:00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Friday</td>
+                                        <td>18:00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Saturday</td>
+                                        <td>12:00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sunday</td>
+                                        <td>12:00</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="movie col-lg-6">
+                        <div class="row align-items-center">
+                            <div id="poster" class="col-sm-5"><img src="../media/The_Happy_Prince_poster.png" alt="The Happy Prince" id='movieAHF'></div>
+                            <div class="movie-info col-sm-7">
+                                <p>The Happy Prince</p>
+                                <p>(MA15+)</p>
+                                <table>
+                                    <tr>
+                                        <td>Monday</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tuesday</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Wednesday</td>
+                                        <td>12:00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Thursday</td>
+                                        <td>12:00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Friday</td>
+                                        <td>12:00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Saturday</td>
+                                        <td>21:00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sunday</td>
+                                        <td>21:00</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class='anchor' id='synopsis-anchor'></div>
+            <div id="synopsis" class="container-fluid">
+                <form action="https://titan.csit.rmit.edu.au/~e54061/wp/lunardo-formtest.php" method="POST" id='booking-form'>
+                    <!-- Movie -->
+                    <div class="row align-items-center synopsis-row">
+                        <div id="info" class="col-lg-7">
+                            <p><span></span><span></span></p>
+                            <br>
+                            <p></p>
+                            <p></p>
+                            <input type="hidden" name="movie[id]">
+                        </div>
+                        <div class="col-lg-5 embed-responsive embed-responsive-16by9 trailer">
+                            <iframe class="embed-responsive-item" src="" allowfullscreen></iframe>
+                        </div>
+                    </div>
+
+                    <!-- Date -->
+                    <p>Make a booking:</p>
+                    <div class='booking-date'>
+                        <input type="radio" name="booking" id='SUN'>
+                        <label for='SUN'></label>
+                    </div>
+                    <div class='booking-date'>
+                        <input type="radio" name="booking" id='MON'>
+                        <label for='MON'></label>
+                    </div>
+                    <div class='booking-date'>
+                        <input type="radio" name="booking" id='TUE'>
+                        <label for='TUE'></label>
+                    </div>
+                    <div class='booking-date'>
+                        <input type="radio" name="booking" id='WED'>
+                        <label for='WED'></label>
+                    </div>
+                    <div class='booking-date'>
+                        <input type="radio" name="booking" id='THU'>
+                        <label for='THU'></label>
+                    </div>
+                    <div class='booking-date'>
+                        <input type="radio" name="booking" id='FRI'>
+                        <label for='FRI'></label>
+                    </div>
+                    <div class='booking-date'>
+                        <input type="radio" name="booking" id='SAT'>
+                        <label for='SAT'></label>
+                    </div>
+                    <input type="hidden" name="movie[day]">
+                    <input type="hidden" name="movie[hour]">
+
+                    <!-- Seat types -->
+                    <div class='row'>
+                        <div class='booking-box col-md-6'>
+                            <span>First Class</span>
+                            <div class='inner'>
+                                <label for="adults">Adults:</label>
+                                <input type="number" name="seats[FCA]" id="adults" min="1" max="10" class="seats">
+                                <label for="concession">Concession:</label>
+                                <input type="number" name="seats[FCP]" id="concession" min="1" max="10" class="seats">
+                                <label for="children">Children:</label>
+                                <input type="number" name="seats[FCC]" id="children" min="1" max="10" class="seats">
+                            </div>
+                        </div>
+                        <div class='booking-box col-md-6'>
+                            <span>Standard</span>
+                            <div class='inner'>
+                                <label for="adults">Adults:</label>
+                                <input type="number" name="seats[STA]" id="adults" min="1" max="10" class="seats">
+                                <label for="concession">Concession:</label>
+                                <input type="number" name="seats[STP]" id="concession" min="1" max="10" class="seats">
+                                <label for="children">Children:</label>
+                                <input type="number" name="seats[STC]" id="children" min="1" max="10" class="seats">
+                            </div>
+                        </div>
+                    </div>
+                    <p id='total'>Total: $</p>
+
+                    <!-- User info -->
+                    <div class='booking-box'>
+                        <span>Info</span>
+                        <div class='inner' id='info-table'>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <label for="name">Name</label>
+                                    </td>
+                                    <td>
+                                        <input type="text" id="name" name="cust[name]" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="email">Email</label>
+                                    </td>
+                                    <td>
+                                        <input type="email" id="email" name="cust[email]" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="mobile">Mobile</label>
+                                    </td>
+                                    <td>
+                                        <input type="tel" id="mobile" name="cust[mobile]" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="credit">Credit Card</label>
+                                    </td>
+                                    <td>
+                                        <input type="text" id="credit" name="cust[card]" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="expiry">Expiry</label>
+                                    </td>
+                                    <td>
+                                        <input type="month" id="expiry" name="cust[expiry]" required>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <input type="submit" value="Order" id='orderBtn'>
+                </form>
+            </div>
+
+        </article>
+
+    </main>
+
+    <footer>
+        <div>
+            Cinemax&trade; | Contact at: inquiries@cinemax.com | 0123456789 | 123A Nguyen Van Linh, District 7, Ho Chi Minh City, Vietnam
+        </div>
+        <div>&copy;
+            <script>
+                document.write(new Date().getFullYear());
+            </script> Huynh Ngoc Tuyen - s38318311. Last modified
+            <?= date ("Y F d  H:i", filemtime(<sup>$</sup>_SERVER['SCRIPT_FILENAME'])); ?>.
+        </div>
+        <div>
+            Disclaimer: This website is not a real website and is being developed as part of a School of Science Web Programming course at RMIT University in
+            Melbourne, Australia.
+        </div>
+        <div><button id=' toggleWireframeCSS' onclick='toggleWireframe()'>Toggle Wireframe CSS</button>
+        </div>
+    </footer>
+
+</body>
+
+</html>
