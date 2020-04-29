@@ -106,6 +106,9 @@ main article {
   text-decoration: none;
   color: #3b778b;
 }
+#seatings {
+  margin-top: 2rem;
+}
 #seatings div {
   text-align: center;
 }
@@ -183,8 +186,8 @@ main article {
   text-align: center;
 }
 #poster img {
-  max-width: 360px;
-  max-height: 486px;
+  max-width: 364px;
+  max-height: 490px;
   border: 2px solid #000;
   box-shadow: 5px 10px #949494;
   transition: border 0.2s, box-shadow 0.2s;
