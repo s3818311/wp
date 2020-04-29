@@ -1,3 +1,13 @@
+@font-face {
+  font-family: "Pare Reverse";
+  src: url("../fonts/Pare\ Reverse\ Italic.ttf");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Sen";
+  src: url("../fonts/Sen.ttf");
+  font-display: swap;
+}
 html {
   background-color: #d4d4d4;
   scroll-behavior: smooth;
@@ -9,7 +19,7 @@ div,
 p,
 span {
   font-family: Sen;
-  font-size: 37px;
+  font-size: 30px;
 }
 input:focus {
   outline: none;
@@ -24,15 +34,12 @@ header {
   /* Image sourced from 
   https://pixabay.com/photos/admission-coupon-admit-carnival-2974645/ 
   educational purposes only*/
-  background-image: url(../media/header_bg.jpg);
+  background-image: url(../media/header_bg.webp);
   background-position: center;
   padding: 2% 0;
 }
 header > div > div:first-child {
   text-align: right;
-}
-header img {
-  width: 350px;
 }
 header div:last-child {
   font-family: "Pare Reverse";
@@ -44,6 +51,7 @@ header div:last-child {
 }
 #navigation {
   background-color: #000;
+  max-height: 65px;
 }
 #navigation a {
   color: #f9ed69;
@@ -63,13 +71,13 @@ main article {
 }
 .anchor {
   visibility: hidden;
-  top: -70px;
+  top: -60px;
   display: block;
   position: relative;
 }
 #section1 {
   /* Image sourced from profurn.com.au - educational purpose only */
-  background-image: url(../media/seat_background.jpg);
+  background-image: url(../media/seat_background.webp);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -106,7 +114,7 @@ main article {
   color: #b83b5e;
 }
 #seatings img {
-  width: 40vw;
+  max-width: 768px;
 }
 #section2 {
   background-image: linear-gradient(#b83b5e, #6a2c70);
@@ -175,7 +183,8 @@ main article {
   text-align: center;
 }
 #poster img {
-  width: 100%;
+  max-width: 360px;
+  max-height: 486px;
   border: 2px solid #000;
   box-shadow: 5px 10px #949494;
   transition: border 0.2s, box-shadow 0.2s;

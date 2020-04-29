@@ -7,26 +7,28 @@
     <title>Assignment 3</title>
 
     <!-- Linking Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    <script async defer src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    <script async defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
+    <script async defer src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script async defer src='script.js'></script>
 
     <!-- Keep wireframe.css for debugging, add your css to style.css -->
-    <link id='wireframecss' type="text/css" rel="stylesheet" href="../wireframe.css" disabled>
-    <link id='stylecss' type="text/css" rel="stylesheet" href="style.css">
+    <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" id='wireframecss' type="text/css" href="../wireframe.css" disabled>
+    <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" id='stylecss' type="text/css" href="style.css">
 
-    <!-- Font imports -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-    <link href="https://db.onlinewebfonts.com/c/3342cca944af04fdd5cd5d538f3f324f?family=Pare+Reverse" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Sen&display=swap" rel="stylesheet">
+    <noscript>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" id='wireframecss' type="text/css" href="../wireframe.css" disabled>
+        <link rel="stylesheet" id='stylecss' type="text/css" href="style.css">
+    </noscript>
 
-    <script src='../wireframe.js'></script>
+    <script async defer src='../wireframe.js'></script>
 </head>
 
 <body>
@@ -34,7 +36,7 @@
     <header class="container-fluid">
         <div class="row align-items-center">
             <div class="col-lg-4">
-                <img src="../media/cinema_logo.png" alt="Cinema Logo">
+                <img src="../media/cinema_logo.webp" alt="Cinema Logo">
             </div>
             <div class="col-lg-8">Cinemax</div>
         </div>
@@ -59,22 +61,23 @@
             <div id="section1-content-wrapper" class="container-fluid">
                 <div class="row align-items-center">
                     <p><span>The wait is over!</span></p>
+                    <br>
                     <p>The cinema has reopened after extensive improvements and renovations.</p>
                     <p>
                         The projection and sound systems are upgraded with 3D Dolby Vision projection and Dolby Atmos sound.
                         For more information about Dolby,
-                        <a href="https://www.dolby.com/us/en/cinema" target="_blank">click here</a>.
+                        <a href="https://www.dolby.com/us/en/cinema" target="_blank" rel="noopener">click here</a>.
                     </p>
                     <p>There are new seats available with reclinable first class seats and standard seats.</p>
                 </div>
                 <div id='seatings' class="row align-items-start">
                     <div class="col-lg-6">
                         <p>First class seating</p>
-                        <img src="../media/first_class_seat.png" alt="First class seat">
+                        <img src="../media/first_class_seat.webp" alt="First class seat">
                     </div>
                     <div class="col-lg-6">
                         <p>Standard seating</p>
-                        <img src="../media/standard_seat.png" alt="Standard seat" id="standard-seat">
+                        <img src="../media/standard_seat.webp" alt="Standard seat" id="standard-seat">
                     </div>
                 </div>
             </div>
@@ -144,7 +147,7 @@
                 <div class="row align-items-center">
                     <div class="movie col-lg-6">
                         <div class="row align-items-center">
-                            <div id="poster" class="col-sm-5"><img src="../media/Avengers_Endgame_poster.jpg" alt="Avengers: Endgame" id='movieACT'></div>
+                            <div id="poster" class="col-sm-5"><img src="../media/Avengers_Endgame_poster.webp" alt="Avengers: Endgame" id='movieACT'></div>
                             <div class="movie-info col-sm-7">
                                 <p>Avengers: Endgame</p>
                                 <p>(M)</p>
@@ -183,7 +186,7 @@
                     </div>
                     <div class="movie col-lg-6">
                         <div class="row align-items-center">
-                            <div id="poster" class="col-sm-5"><img src="../media/Top_End_Wedding_poster.jpg" alt="Top End Wedding" id='movieRMC'></div>
+                            <div id="poster" class="col-sm-5"><img src="../media/Top_End_Wedding_poster.webp" alt="Top End Wedding" id='movieRMC'></div>
                             <div class="movie-info col-sm-7">
                                 <p>Top End Wedding</p>
                                 <p>(M)</p>
@@ -225,7 +228,7 @@
                 <div class="row align-items-center">
                     <div class="movie col-lg-6">
                         <div class="row align-items-center">
-                            <div id="poster" class="col-sm-5"><img src="../media/Dumbo_poster.png" alt="Dumbo" id='movieANM'></div>
+                            <div id="poster" class="col-sm-5"><img src="../media/Dumbo_poster.webp" alt="Dumbo" id='movieANM'></div>
                             <div class="movie-info col-sm-7">
                                 <p>Dumbo</p>
                                 <p>(PG)</p>
@@ -265,7 +268,7 @@
 
                     <div class="movie col-lg-6">
                         <div class="row align-items-center">
-                            <div id="poster" class="col-sm-5"><img src="../media/The_Happy_Prince_poster.png" alt="The Happy Prince" id='movieAHF'></div>
+                            <div id="poster" class="col-sm-5"><img src="../media/The_Happy_Prince_poster.webp" alt="The Happy Prince" id='movieAHF'></div>
                             <div class="movie-info col-sm-7">
                                 <p>The Happy Prince</p>
                                 <p>(MA15+)</p>
