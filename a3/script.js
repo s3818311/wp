@@ -28,28 +28,28 @@ const movies = {
     'movieACT': {
         name: 'Avengers: Endgame',
         rating: 'M',
-        showtime: ['-', '-', '21:00', '21:00', '21:00', '18:00', '18:00'],
+        showtime: ['18:00', '-', '-', '21:00', '21:00', '21:00', '18:00'],
         plot: String.raw`After the devastating events of Avengers: Infinity War (2018), the universe is in ruins due to the efforts of the Mad Titan, Thanos. With the help of remaining allies, the Avengers must assemble once more in order to undo Thanos's actions and undo the chaos to the universe, no matter what consequences may be in store, and no matter who they face...`,
         trailer: 'https://www.youtube.com/embed/TcMBFSGVi1c'
     },
     'movieRMC': {
         name: 'Top End Wedding',
         rating: 'M',
-        showtime: ['18:00', '18:00', '-', '-', '-', '15:00', '15:00'],
+        showtime: ['15:00', '18:00', '18:00', '-', '-', '-', '15:00'],
         plot: String.raw`Lauren and Ned are engaged, they are in love, and they have just ten days to find Lauren's mother who has gone AWOL somewhere in the remote far north of Australia, reunite her parents and pull off their dream wedding.`,
         trailer: 'https://www.youtube.com/embed/uoDBvGF9pPU'
     },
     'movieANM': {
         name: 'Dumbo',
         rating: 'PG',
-        showtime: ['12:00', '12:00', '18:00', '18:00', '18:00', '12:00', '12:00'],
+        showtime: ['12:00', '12:00', '12:00', '18:00', '18:00', '18:00', '12:00'],
         plot: String.raw`Holt was once a circus star, but he went off to war and when he returned it had terribly altered him. Circus owner Max Medici (Danny DeVito) hires him to take care of Dumbo, a newborn elephant whose oversized ears make him the laughing stock of the struggling circus troupe. But when Holt's children discover that Dumbo can fly, silver-tongued entrepreneur V.A. Vandevere (Michael Keaton), and aerial artist Colette Marchant (Eva Green) swoop in to make the little elephant a star.`,
         trailer: 'https://www.youtube.com/embed/7NiYVoqBt-8'
     },
     'movieAHF': {
         name: 'The Happy Prince',
         rating: 'MA15+',
-        showtime: ['-', '-', '12:00', '12:00', '12:00', '21:00', '21:00'],
+        showtime: ['21:00', '-', '-', '12:00', '12:00', '12:00', '21:00'],
         plot: String.raw`In a cheap Parisian hotel room Oscar Wilde lies on his death bed. The past floods back, taking him to other times and places. Was he once the most famous man in London? The artist crucified by a society that once worshipped him? Under the microscope of death he reviews the failed attempt to reconcile with his long suffering wife Constance, the ensuing reprisal of his fatal love affair with Lord Alfred Douglas and the warmth and devotion of Robbie Ross, who tried and failed to save him from himself. Travelling through Wilde's final act and journeys through England, France and Italy, the transience of lust is laid bare and the true riches of love are revealed. It is a portrait of the dark side of a genius who lived and died for love.`,
         trailer: 'https://www.youtube.com/embed/4HmN9r1Fcr8'
     }
@@ -77,21 +77,26 @@ const day = {
 
 const updateShowtime = movie => {
     let showtimes = movie.showtime
-    // let now = new Date()
+    let now = new Date()
 
     for (let i = 0; i < showtimes.length; i++) {
         const time = showtimes[i]
         const input = inputs[i]
         const label = labels[i]
 
-        if (time === '-') input.disabled = true
+        if (time === '-') {
+            input.disabled = true
+            input.checked = false
+        }
         else input.disabled = false
 
-        // if (i <= now.getDay())
-        //     if (time <= now.getHours())
-        //         input.checked = true
-        //     else
-        //         inputs[i + 1].checked = true
+        if (i <= now.getDay())
+            if (time <= now.getHours())
+                input.checked = !input.disabled
+            else
+                inputs[i + 1].checked = true
+
+
 
         label.innerHTML = day[i] + '<br>' + time
     }
