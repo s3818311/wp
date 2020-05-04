@@ -90,11 +90,11 @@ const updateShowtime = movie => {
         }
         else input.disabled = false
 
-        if (i <= now.getDay())
-            if (time <= now.getHours())
-                input.checked = !input.disabled
-            else
-                inputs[i + 1].checked = true
+        // if (i <= now.getDay())
+        //     if (time <= now.getHours())
+        //         input.checked = !input.disabled
+        //     else
+        //         inputs[i + 1].checked = true
 
 
 
@@ -142,11 +142,10 @@ for (const price of document.querySelectorAll('.price-normal'))
 const updateTotal = () => {
     let seats = [...document.getElementsByClassName('seats')].map(s => s.value ? Number(s.value) : 0)
     let temp = 0;
-    if (discount_flag)
-        for (let i = 0; i < 6; i++)
+    for (let i = 0; i < 6; i++)
+        if (discount_flag)
             temp += seats[i] * Object.values(prices)[i][0]
-    else
-        for (let i = 0; i < 6; i++)
+        else
             temp += seats[i] * Object.values(prices)[i][1]
 
     total.innerText = `Total: $${decimalFmt(temp)}`
@@ -191,33 +190,33 @@ for (let i = 0; i < input_divs.length; i++) {
 let input_name = document.querySelector('.booking-box #name')
 input_name.addEventListener('blur', () => {
     if (/^[a-z .\-\']+[a-z.\-\']$/i.test(input_name.value))
-        input_name.style.borderBottom = '5px solid black'
+        input_name.style.borderBottom = '3px solid black'
     else
-        input_name.style.borderBottom = '5px solid red'
+        input_name.style.borderBottom = '3px solid red'
 })
 
 let input_email = document.querySelector('.booking-box #email')
 input_email.addEventListener('blur', () => {
     if (input_email.validity.valid)
-        input_email.style.borderBottom = '5px solid black'
+        input_email.style.borderBottom = '3px solid black'
     else
-        input_email.style.borderBottom = '5px solid red'
+        input_email.style.borderBottom = '3px solid red'
 })
 
 let input_mobile = document.querySelector('.booking-box #mobile')
 input_mobile.addEventListener('blur', () => {
     if (/^[0-9 ]+$/.test(input_mobile.value))
-        input_mobile.style.borderBottom = '5px solid black'
+        input_mobile.style.borderBottom = '3px solid black'
     else
-        input_mobile.style.borderBottom = '5px solid red'
+        input_mobile.style.borderBottom = '3px solid red'
 })
 
 let input_credit = document.querySelector('.booking-box #credit')
 input_credit.addEventListener('blur', () => {
     if (/^[0-9 ]{14,19}$/.test(input_credit.value))
-        input_credit.style.borderBottom = '5px solid black'
+        input_credit.style.borderBottom = '3px solid black'
     else
-        input_credit.style.borderBottom = '5px solid red'
+        input_credit.style.borderBottom = '3px solid red'
 })
 
 let input_expiry = document.querySelector('.booking-box #expiry')
@@ -227,7 +226,14 @@ input_expiry.addEventListener('blur', () => {
     let month = date[1]
     let now = new Date()
     if (year >= now.getFullYear() && month > now.getMonth())
-        input_expiry.style.borderBottom = '5px solid black'
+        input_expiry.style.borderBottom = '3px solid black'
     else
-        input_expiry.style.borderBottom = '5px solid red'
+        input_expiry.style.borderBottom = '3px solid red'
+})
+
+/* -------------------------------------------------------------- */
+
+let form = document.getElementById("booking-form")
+form.addEventListener('submit', (e) => {
+    if (total.innerText.split(' ')[1].substr(1) == 0) e.preventDefault()
 })
