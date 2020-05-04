@@ -249,7 +249,7 @@ main article {
 }
 .synopsis-row + p {
   margin-top: 0.5rem;
-  font-size: 40px;
+  font-size: 45px;
 }
 #booking-form {
   text-align: center;
@@ -308,7 +308,7 @@ main article {
 .booking-box input {
   background-color: transparent;
   border: none;
-  border-bottom: 5px solid black;
+  border-bottom: 3px solid black;
   text-align: center;
   transition: border 0.5s;
 }
