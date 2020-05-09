@@ -1,19 +1,30 @@
+let nav_bar = document.getElementById('navigation')
 let nav_height = document.getElementsByTagName('nav')[0].clientHeight
-let sect1_top = document.getElementById('section1').offsetTop
-let sect2_top = document.getElementById('section2').offsetTop
-let sect3_top = document.getElementById('section3').offsetTop
 let nav_links = document.querySelectorAll('.nav-item')
 
 document.addEventListener('scroll', () => {
+    let sect1_top = document.getElementById('section1').offsetTop
+    let sect2_top = document.getElementById('section2').offsetTop
+    let sect3_top = document.getElementById('section3').offsetTop
     let win_y = window.scrollY + nav_height
 
-    if (sect1_top < win_y && win_y < sect2_top) nav_links[0].classList.add('active')
+    if (sect1_top < win_y && win_y < sect2_top) {
+        nav_links[0].classList.add('active')
+        nav_bar.style.backgroundColor = 'black'
+    }
     else nav_links[0].classList.remove('active')
 
-    if (sect2_top < win_y && win_y < sect3_top) nav_links[1].classList.add('active')
+    if (sect2_top < win_y && win_y < sect3_top) {
+        nav_links[1].classList.add('active')
+        nav_bar.style.backgroundColor = 'darkslategrey'
+    }
     else nav_links[1].classList.remove('active')
 
-    if (sect3_top < win_y) nav_links[2].classList.add('active')
+
+    if (sect3_top < win_y) {
+        nav_links[2].classList.add('active')
+        nav_bar.style.backgroundColor = '#424874'
+    }
     else nav_links[2].classList.remove('active')
 })
 
@@ -205,7 +216,7 @@ input_email.addEventListener('blur', () => {
 
 let input_mobile = document.querySelector('.booking-box #mobile')
 input_mobile.addEventListener('blur', () => {
-    if (/^[0-9 ]+$/.test(input_mobile.value))
+    if (/^[0-9 ]+[0-9]$/.test(input_mobile.value))
         input_mobile.style.borderBottom = '3px solid black'
     else
         input_mobile.style.borderBottom = '3px solid red'
@@ -213,7 +224,7 @@ input_mobile.addEventListener('blur', () => {
 
 let input_credit = document.querySelector('.booking-box #credit')
 input_credit.addEventListener('blur', () => {
-    if (/^[0-9 ]{14,19}$/.test(input_credit.value))
+    if (/^[0-9 ]{13,18}[0-9]$/.test(input_credit.value))
         input_credit.style.borderBottom = '3px solid black'
     else
         input_credit.style.borderBottom = '3px solid red'
