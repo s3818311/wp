@@ -259,6 +259,10 @@ main article {
 #booking-form {
   text-align: center;
 }
+#booking-form div + p > span {
+  font-size: inherit;
+  font-weight: bolder;
+}
 .booking-date {
   display: inline-block;
   user-select: none;

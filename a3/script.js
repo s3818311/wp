@@ -115,10 +115,12 @@ const updateShowtime = movie => {
 
 let trailer = document.getElementsByTagName('iframe')[0]
 let posters = document.querySelectorAll('#poster')
+let book_title = document.querySelector('#booking-form div + p > span')
 posters.forEach(poster => {
     poster.addEventListener('click', (e) => {
         let movie = movies[e.target.id]
         movie_title.innerHTML = movie.name
+        book_title.innerText = movie.name
         movie_rating.innerHTML = '(' + movie.rating + ')'
         movie_plot.innerText = movie.plot
         trailer.src = movie.trailer
