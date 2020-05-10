@@ -89,6 +89,7 @@ main article {
 }
 #section1-content-wrapper p {
   margin: 0 3% 0 4%;
+  width: 100%;
 }
 #section1-content-wrapper span {
   font-size: 60px;
@@ -155,6 +156,7 @@ main article {
   background-color: #3b6978;
 }
 .price-normal {
+  color: mediumaquamarine;
   font-size: 35px;
   margin: 0;
 }
