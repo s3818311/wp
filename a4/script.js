@@ -1,33 +1,26 @@
 let nav_bar = document.getElementById('navigation')
-let nav_height = document.getElementsByTagName('nav')[0].clientHeight
 let nav_links = document.querySelectorAll('.nav-item')
 
 document.addEventListener('scroll', () => {
-    let sect1_top = document.getElementById('section1').offsetTop
-    let sect2_top = document.getElementById('section2').offsetTop
-    let sect3_top = document.getElementById('section3').offsetTop
-    let win_y = window.scrollY + nav_height
-
-    if (sect1_top < win_y && win_y < sect2_top) {
-        nav_links[0].classList.add('active')
-        nav_bar.style.backgroundColor = 'black'
-    }
-    else nav_links[0].classList.remove('active')
-
-    if (sect2_top < win_y && win_y < sect3_top) {
-        nav_links[1].classList.add('active')
-        nav_bar.style.backgroundColor = 'darkslategrey'
-    }
-    else nav_links[1].classList.remove('active')
-
-
-    if (sect3_top < win_y) {
-        nav_links[2].classList.add('active')
-        nav_bar.style.backgroundColor = '#424874'
-    }
-    else nav_links[2].classList.remove('active')
+    nav_links.forEach(nav_link => {
+        if (nav_link.classList.contains('active')) {
+            switch (nav_link.innerText) {
+                case 'About Us':
+                    nav_bar.style.backgroundColor = 'black';
+                    break;
+                case 'Pricing':
+                    nav_bar.style.backgroundColor = 'darkslategrey';
+                    break;
+                case 'Now Showing':
+                    nav_bar.style.backgroundColor = '#424874';
+                    break;
+                default:
+                    nav_bar.style.backgroundColor = 'black';
+                    break;
+            }
+        }
+    })
 })
-
 /* -------------------------------------------------------------- */
 
 const synopsis = document.getElementById('synopsis')
@@ -132,7 +125,7 @@ posters.forEach(poster => {
         if (synopsis.style.display === 'none') synopsis.style.display = ''
         updateShowtime(movie)
 
-        window.scrollTo(0, synopsis.offsetTop - nav_height)
+        window.scrollTo(0, synopsis.offsetTop - document.getElementsByTagName('nav')[0].clientHeight)
     })
 });
 
