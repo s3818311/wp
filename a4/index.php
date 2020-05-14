@@ -1,6 +1,7 @@
 <?php
-session_start();
 include "tools.php";
+session_start();
+mysqliConn();
 
 $generalErr = "";
 $chosenMov = "";
@@ -127,7 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <script async defer src='../wireframe.js'></script>
 </head>
 
-<body>
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
 
     <header class="container-fluid">
         <div class="row align-items-center">
