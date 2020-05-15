@@ -312,6 +312,10 @@ main article {
 }
 #total {
   margin-top: 1rem;
+  background: transparent;
+  outline: none;
+  border: none;
+  width: 5rem;
 }
 .booking-box table {
   text-align: right;
