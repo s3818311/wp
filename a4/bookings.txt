@@ -1,1 +1,3 @@
 Date	Name	Email	Mobile	MovieID	Day	Hour	"STA Qty"	"STP Qty"	"STC Qty"	"FCA Qty"	"FCP Qty"	"FCC Qty"	Total
+2020-05-15	awf	awf@awf.awf	123123123	"movieRMC SUN T15"						1	24.00
+2020-05-15	awfawf	awfawf@wf.awf	123123123	"movieAHF SUN T21"				1			30.00
