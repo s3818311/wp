@@ -2,7 +2,7 @@
 include "tools.php";
 session_start();
 
-if (!isset($_SESSION)) header("Location: index.php#");
+if (empty($_SESSION)) header("Location: index.php#");
 
 $session_data = [
     date("o-m-d"),
@@ -34,10 +34,69 @@ fclose($fp);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Receipt</title>
+
+    <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" id='stylecss' type="text/css" href="receipt_style.css">
+    <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" id='wireframecss' type="text/css" href="../wireframe.css" disabled>
+
+    <noscript>
+        <link rel="stylesheet" id='wireframecss' type="text/css" href="../wireframe.css" disabled>
+        <link rel="stylesheet" id='stylecss' type="text/css" href="receipt_style.css">
+    </noscript>
+
+    <script async defer src='../wireframe.js'></script>
 </head>
 
 <body>
-
+    <header>
+        <div>
+            <span>Cinemax</span>
+            <p>ABN: 00 123 456 789</p>
+        </div>
+    </header>
+    <section>
+        <table>
+            <tr>
+                <td>
+                    <div id='cust-info'>
+                        <h2>Customer info:</h2>
+                        <table>
+                            <tr>
+                                <td>Name</td>
+                                <td>: <?php echo $_SESSION['cust']['name'] ?></td>
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td>: <?php echo $_SESSION['cust']['email'] ?></td>
+                            </tr>
+                            <tr>
+                                <td>Mobile</td>
+                                <td>: <?php echo $_SESSION['cust']['mobile'] ?></td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+                <td>
+                    <div id='movie-info'>
+                        <h2>Movie info:</h2>
+                        <table>
+                            <tr>
+                                <td>Day</td>
+                                <td>: <?php echo $dayAbbr[$_SESSION['movie']['day']] ?></td>
+                            </tr>
+                            <tr>
+                                <td>Hour</td>
+                                <td>: <?php echo $hourAbbr[$_SESSION['movie']['hour']] ?></td>
+                            </tr>
+                            <tr>
+                                <td>Mobile</td>
+                                <td>: <?php echo $_SESSION['cust']['mobile'] ?></td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </section>
 </body>
 
 </html>
