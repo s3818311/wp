@@ -32,10 +32,12 @@ $expiryInp = "";
 $total = 0;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (!empty($_POST['movie']['day']) && !empty($_POST['movie']['hour'])) {
-        $chosenMov = $_POST['movie']['id'];
+    $chosenMov = $_POST['movie']['id'];
+
+    if (!empty($_POST['movie']['day']))
         $_SESSION['movie'] = $_POST['movie'];
-    } else $generalErr = "Please choose a time and date";
+    else
+        $generalErr = "Please choose a time and date";
 
     if ($_POST['total'] != 0) {
         $total = $_POST['total'];
@@ -91,8 +93,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $expiryInp = $_POST['cust']['expiry'];
     if (empty($_POST['cust']['expiry']))
         $expiryErr = "Please enter the expiry date of your credit card";
-    else if ((new Datetime($expiryInp))->format("Y-m") < date("Y-m")) {
-        $expiryErr = "Invalid date, must be greater than " . date("F Y");
+    else if ((new Datetime($expiryInp))->format("Y-m") < date("Y-m", strtotime("+28 days"))) {
+        $expiryErr = "Invalid date, must be greater than " . date("F Y", strtotime("+28 days"));
         $expiryInp = sanitizeInp($expiryInp);
     } else {
         $expiryInp = sanitizeInp($expiryInp);
@@ -125,7 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <!-- Keep wireframe.css for debugging, add your css to style.css -->
     <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" id='stylecss' type="text/css" href="style.css">
-    <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" id='wireframecss' type="text/css" href="../wireframe.css" disabled>
+    <link rel="stylesheet" id='wireframecss' type="text/css" href="../wireframe.css" disabled>
 
     <noscript>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -432,31 +434,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <p>Make a booking for: <span></span></p>
                     <p><span class="err-span"><?php echo $generalErr ?></span></p>
                     <div class='booking-date'>
-                        <input type="radio" name="booking" id='SUN' <?php if ($_POST['movie']['day'] === 'SUN') echo "checked" ?>>
+                        <input type="radio" name="booking" id='SUN'>
                         <label for='SUN'></label>
                     </div>
                     <div class='booking-date'>
-                        <input type="radio" name="booking" id='MON' <?php if ($_POST['movie']['day'] === 'MON') echo "checked" ?>>
+                        <input type="radio" name="booking" id='MON'>
                         <label for='MON'></label>
                     </div>
                     <div class='booking-date'>
-                        <input type="radio" name="booking" id='TUE' <?php if ($_POST['movie']['day'] === 'TUE') echo "checked" ?>>
+                        <input type="radio" name="booking" id='TUE'>
                         <label for='TUE'></label>
                     </div>
                     <div class='booking-date'>
-                        <input type="radio" name="booking" id='WED' <?php if ($_POST['movie']['day'] === 'WED') echo "checked" ?>>
+                        <input type="radio" name="booking" id='WED'>
                         <label for='WED'></label>
                     </div>
                     <div class='booking-date'>
-                        <input type="radio" name="booking" id='THU' <?php if ($_POST['movie']['day'] === 'THU') echo "checked" ?>>
+                        <input type="radio" name="booking" id='THU'>
                         <label for='THU'></label>
                     </div>
                     <div class='booking-date'>
-                        <input type="radio" name="booking" id='FRI' <?php if ($_POST['movie']['day'] === 'FRI') echo "checked" ?>>
+                        <input type="radio" name="booking" id='FRI'>
                         <label for='FRI'></label>
                     </div>
                     <div class='booking-date'>
-                        <input type="radio" name="booking" id='SAT' <?php if ($_POST['movie']['day'] === 'SAT') echo "checked" ?>>
+                        <input type="radio" name="booking" id='SAT'>
                         <label for='SAT'></label>
                     </div>
                     <input type="hidden" name="movie[day]">
@@ -578,7 +580,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </form>
         </div>
     </footer>
-
 
 </body>
 
