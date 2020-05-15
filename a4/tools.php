@@ -1,6 +1,24 @@
 <?php
 
 // Put your PHP functions and modules here
+
+$dayAbbr = [
+    'SUN' => "Sunday",
+    'MON' => "Monday",
+    'TUE' => "Tuesday",
+    'WED' => "Wednesday",
+    'THU' => "Thursday",
+    'FRI' => "Friday",
+    'SAT' => "Saturday",
+];
+
+$hourAbbr = [
+    'T12' => '12:00',
+    'T15' => '15:00',
+    'T18' => '18:00',
+    'T21' => '21:00',
+];
+
 function preShow($arr, $returnAsString = false) {
     $ret = '<pre>' . print_r($arr, true) . '</pre>';
     if ($returnAsString) {
@@ -21,9 +39,7 @@ function printMyCode() {
 }
 
 function php2js($phpName, $jsName) {
-    echo "<script>";
-    echo "var {$jsName} = " . json_encode($phpName, JSON_PRETTY_PRINT | JSON_HEX_TAG);
-    echo "</script>\n";
+    echo "<script>var {$jsName} = " . json_encode($phpName, JSON_PRETTY_PRINT | JSON_HEX_TAG) . "</script>\n";
 }
 
 function anyInArr($arr) {
@@ -37,13 +53,4 @@ function anyInArr($arr) {
 
 function sanitizeInp($inp) {
     return (string) htmlspecialchars(stripslashes(trim($inp)));
-}
-
-function &mysqliConn() {
-    $conn = mysqli_connect("localhost", "root", "root", "mydb", "3307");
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
-
-    return $conn;
 }
