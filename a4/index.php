@@ -1,7 +1,15 @@
 <?php
 include "tools.php";
 session_start();
-mysqliConn();
+// $sql_conn = &mysqliConn();
+
+if (isset($_POST['session-reset'])) {
+    $reset_flag = session_destroy();
+    if ($reset_flag) {
+        unset($_POST['session-reset']);
+        header("Location: index.php#");
+    } else exit("Session failed to reset");
+}
 
 $generalErr = "";
 $chosenMov = "";
@@ -21,24 +29,24 @@ $creditInp = "";
 $expiryErr = "";
 $expiryInp = "";
 // ----------
+$total = 0;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_POST['movie'])) {
+    if (!empty($_POST['movie']['day']) && !empty($_POST['movie']['hour'])) {
         $chosenMov = $_POST['movie']['id'];
         $_SESSION['movie'] = $_POST['movie'];
-    }
+    } else $generalErr = "Please choose a time and date";
 
-    if (anyInArr($_POST['seats']))
+    if ($_POST['total'] != 0) {
+        $total = $_POST['total'];
+        $_SESSION['total'] = $total;
         $_SESSION['seats'] = $_POST['seats'];
-    else
+    } else
         $generalErr = "At least 1 ticket is required";
-
-    if (empty($_POST['booking']))
-        $generalErr = "Please choose a time and date";
 
     $nameInp = $_POST['cust']['name'];
     if (empty($_POST['cust']['name']))
-        $nameErr = "Please enter a name";
+        $nameErr = "Please enter your name";
     else if (!preg_match("/^[a-z \-\']+$/i", $nameInp)) {
         $nameErr = "Only letters, whitespaces, apostrophes(') and hypens(-) are allowed";
         $nameInp = sanitizeInp($nameInp);
@@ -49,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $emailInp = $_POST['cust']['email'];
     if (empty($_POST['cust']['email']))
-        $nameErr = "Please enter an email";
+        $emailErr = "Please enter an email";
     else if (!filter_var($emailInp, FILTER_VALIDATE_EMAIL)) {
         $emailErr = "Invalid email format";
         $emailInp = sanitizeInp($emailInp);
@@ -60,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $mobileInp = $_POST['cust']['mobile'];
     if (empty($_POST['cust']['mobile']))
-        $nameErr = "Please enter your mobile number";
+        $mobileErr = "Please enter your mobile number";
     else if (!preg_match("/^(\d\s*){9,10}$/", $mobileInp)) {
         $mobileErr = "Invalid mobile number format";
         $mobileInp = sanitizeInp($mobileInp);
@@ -82,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $expiryInp = $_POST['cust']['expiry'];
     if (empty($_POST['cust']['expiry']))
-        $expiryErr = "Please the expiry date of your credit card";
+        $expiryErr = "Please enter the expiry date of your credit card";
     else if ((new Datetime($expiryInp))->format("Y-m") < date("Y-m")) {
         $expiryErr = "Invalid date, must be greater than " . date("F Y");
         $expiryInp = sanitizeInp($expiryInp);
@@ -424,31 +432,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <p>Make a booking for: <span></span></p>
                     <p><span class="err-span"><?php echo $generalErr ?></span></p>
                     <div class='booking-date'>
-                        <input type="radio" name="booking" id='SUN' <?php if ($generalErr === "" && $_POST['movie']['day'] === 'SUN') echo "checked" ?>>
+                        <input type="radio" name="booking" id='SUN' <?php if ($_POST['movie']['day'] === 'SUN') echo "checked" ?>>
                         <label for='SUN'></label>
                     </div>
                     <div class='booking-date'>
-                        <input type="radio" name="booking" id='MON' <?php if ($generalErr === "" && $_POST['movie']['day'] === 'MON') echo "checked" ?>>
+                        <input type="radio" name="booking" id='MON' <?php if ($_POST['movie']['day'] === 'MON') echo "checked" ?>>
                         <label for='MON'></label>
                     </div>
                     <div class='booking-date'>
-                        <input type="radio" name="booking" id='TUE' <?php if ($generalErr === "" && $_POST['movie']['day'] === 'TUE') echo "checked" ?>>
+                        <input type="radio" name="booking" id='TUE' <?php if ($_POST['movie']['day'] === 'TUE') echo "checked" ?>>
                         <label for='TUE'></label>
                     </div>
                     <div class='booking-date'>
-                        <input type="radio" name="booking" id='WED' <?php if ($generalErr === "" && $_POST['movie']['day'] === 'WED') echo "checked" ?>>
+                        <input type="radio" name="booking" id='WED' <?php if ($_POST['movie']['day'] === 'WED') echo "checked" ?>>
                         <label for='WED'></label>
                     </div>
                     <div class='booking-date'>
-                        <input type="radio" name="booking" id='THU' <?php if ($generalErr === "" && $_POST['movie']['day'] === 'THU') echo "checked" ?>>
+                        <input type="radio" name="booking" id='THU' <?php if ($_POST['movie']['day'] === 'THU') echo "checked" ?>>
                         <label for='THU'></label>
                     </div>
                     <div class='booking-date'>
-                        <input type="radio" name="booking" id='FRI' <?php if ($generalErr === "" && $_POST['movie']['day'] === 'FRI') echo "checked" ?>>
+                        <input type="radio" name="booking" id='FRI' <?php if ($_POST['movie']['day'] === 'FRI') echo "checked" ?>>
                         <label for='FRI'></label>
                     </div>
                     <div class='booking-date'>
-                        <input type="radio" name="booking" id='SAT' <?php if ($generalErr === "" && $_POST['movie']['day'] === 'SAT') echo "checked" ?>>
+                        <input type="radio" name="booking" id='SAT' <?php if ($_POST['movie']['day'] === 'SAT') echo "checked" ?>>
                         <label for='SAT'></label>
                     </div>
                     <input type="hidden" name="movie[day]">
@@ -460,26 +468,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <span>First Class</span>
                             <div class='inner'>
                                 <label for="adults">Adults:</label>
-                                <input type="number" name="seats[FCA]" id="adults" min="1" max="10" class="seats" <?php if ($generalErr === "") echo "value=\"{$_POST['seats']['FCA']}\""; ?>>
+                                <input type="number" name="seats[FCA]" id="adults" min="1" max="10" class="seats" <?php if (!empty($_POST['seats']['FCA'])) echo "value=\"{$_POST['seats']['FCA']}\""; ?>>
                                 <label for="concession">Concession:</label>
-                                <input type="number" name="seats[FCP]" id="concession" min="1" max="10" class="seats" <?php if ($generalErr === "") echo "value=\"{$_POST['seats']['FCP']}\""; ?>>
+                                <input type="number" name="seats[FCP]" id="concession" min="1" max="10" class="seats" <?php if (!empty($_POST['seats']['FCP'])) echo "value=\"{$_POST['seats']['FCP']}\""; ?>>
                                 <label for="children">Children:</label>
-                                <input type="number" name="seats[FCC]" id="children" min="1" max="10" class="seats" <?php if ($generalErr === "") echo "value=\"{$_POST['seats']['FCC']}\""; ?>>
+                                <input type="number" name="seats[FCC]" id="children" min="1" max="10" class="seats" <?php if (!empty($_POST['seats']['FCC'])) echo "value=\"{$_POST['seats']['FCC']}\""; ?>>
                             </div>
                         </div>
                         <div class='booking-box col-md-6'>
                             <span>Standard</span>
                             <div class='inner'>
                                 <label for="adults">Adults:</label>
-                                <input type="number" name="seats[STA]" id="adults" min="1" max="10" class="seats" <?php if ($generalErr === "") echo "value=\"{$_POST['seats']['STA']}\""; ?>>
+                                <input type="number" name="seats[STA]" id="adults" min="1" max="10" class="seats" <?php if (!empty($_POST['seats']['STA'])) echo "value=\"{$_POST['seats']['STA']}\""; ?>>
                                 <label for="concession">Concession:</label>
-                                <input type="number" name="seats[STP]" id="concession" min="1" max="10" class="seats" <?php if ($generalErr === "") echo "value=\"{$_POST['seats']['STP']}\""; ?>>
+                                <input type="number" name="seats[STP]" id="concession" min="1" max="10" class="seats" <?php if (!empty($_POST['seats']['STP'])) echo "value=\"{$_POST['seats']['STP']}\""; ?>>
                                 <label for="children">Children:</label>
-                                <input type="number" name="seats[STC]" id="children" min="1" max="10" class="seats" <?php if ($generalErr === "") echo "value=\"{$_POST['seats']['STC']}\""; ?>>
+                                <input type="number" name="seats[STC]" id="children" min="1" max="10" class="seats" <?php if (!empty($_POST['seats']['STC'])) echo "value=\"{$_POST['seats']['STC']}\""; ?>>
                             </div>
                         </div>
                     </div>
-                    <p id='total'>Total: $0.00</p>
+                    <label for='total'>Total: $</label>
+                    <input type="text" name="total" id="total" readonly <?php if (!empty($_POST['total'])) echo "value=\"{$total}\"" ?>>
 
                     <!-- User info -->
                     <div class='booking-box'>
@@ -570,13 +579,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </footer>
 
-    <?php
-    echo "<h2>Your Input:</h2>";
-    echo "\$_POST: ";
-    preShow($_POST);
-    echo "\$_SESSION: ";
-    preShow($_SESSION);
-    ?>
+
 </body>
 
 </html>
+
+<?php
+echo "<h2>Your Input:</h2>";
+echo "\$_POST: ";
+preShow($_POST);
+echo "\$_SESSION: ";
+preShow($_SESSION);
+printMyCode();
+?>

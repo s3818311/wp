@@ -1,7 +1,7 @@
 <?php
 
 // Put your PHP functions and modules here
-function preShow($arr, $returnAsString = false){
+function preShow($arr, $returnAsString = false) {
     $ret = '<pre>' . print_r($arr, true) . '</pre>';
     if ($returnAsString) {
         return $ret;
@@ -10,7 +10,7 @@ function preShow($arr, $returnAsString = false){
     }
 }
 
-function printMyCode(){
+function printMyCode() {
     $lines = file($_SERVER['SCRIPT_FILENAME']);
     echo "<pre class='mycode'><ol>";
     foreach ($lines as $line) {
@@ -20,13 +20,13 @@ function printMyCode(){
     echo '</ol></pre>';
 }
 
-function php2js($phpName, $jsName){
+function php2js($phpName, $jsName) {
     echo "<script>";
     echo "var {$jsName} = " . json_encode($phpName, JSON_PRETTY_PRINT | JSON_HEX_TAG);
     echo "</script>\n";
 }
 
-function anyInArr($arr){
+function anyInArr($arr) {
     foreach ($arr as $val) {
         if ($val) {
             return true;
@@ -35,12 +35,15 @@ function anyInArr($arr){
     return false;
 }
 
-function sanitizeInp($inp){
+function sanitizeInp($inp) {
     return (string) htmlspecialchars(stripslashes(trim($inp)));
 }
 
-if (isset($_POST['session-reset'])) {
-    session_destroy();
-    session_unset();
-    header("Location: index.php#");
+function &mysqliConn() {
+    $conn = mysqli_connect("localhost", "root", "root", "mydb", "3307");
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+
+    return $conn;
 }
