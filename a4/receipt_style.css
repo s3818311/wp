@@ -20,7 +20,8 @@
   div,
   p,
   span,
-  td {
+  td,
+  th {
     font-family: Sen;
     font-size: 30px;
   }
@@ -29,6 +30,13 @@
     width: 100%;
     text-align: center;
     background-color: #000;
+    padding-bottom: 10px;
+  }
+  header a:hover,
+  header a:active,
+  header a:link,
+  header a:visited {
+    text-decoration: none;
   }
   header span {
     display: block;
@@ -43,35 +51,32 @@
     margin: 0;
   }
   section {
-    padding: 0 10%;
+    background-color: #d4d4d4;
   }
-  section > table {
-    width: 100%;
+  .row.row-cols-2 {
+    padding: 2% 0;
   }
-  table h2 {
+  #cust-info,
+  #movie-info {
+    background-color: rgba(0, 0, 0, 0.11);
+    padding-left: 2%;
+  }
+  #seats-info table tr {
     text-align: center;
   }
-  table div {
-    max-width: 30vw;
+  footer {
+    background-color: #e2e2e2;
   }
-  table table {
-    margin: auto;
-  }
-  table table td:nth-child(2n + 1) {
-    font-size: 32px;
-    text-decoration: underline;
-  }
-  #cust-info {
-    transition: 0.25s background-color;
-  }
-  #cust-info:hover {
-    background-color: rgba(0, 0, 0, 0.11);
+  footer div {
+    font-size: 20px;
   }
 }
+
 @media print {
   html {
     background-color: #fff;
     color: #000;
+    font-family: Sen;
   }
   body {
     margin: 0;
@@ -88,6 +93,22 @@
     display: none;
   }
   header {
+    page-break-before: always;
+  }
+  table,
+  img,
+  svg {
+    page-break-inside: avoid;
+  }
+  div,
+  p,
+  span,
+  td,
+  th {
+    font-family: Garamond, Georgia, serif;
+    font-size: 21pt;
+  }
+  header {
     display: block;
     width: 100%;
     text-align: center;
@@ -96,13 +117,31 @@
     border: 5px solid black;
     width: fit-content;
     margin: auto;
-    padding: 0 40px;
+    padding: 0 45mm;
   }
   header span {
     font-family: "Pare Reverse";
-    font-size: 150px;
+    font-size: 150pt;
     font-weight: bolder;
     letter-spacing: 6px;
     color: #000;
+  }
+  header a:link,
+  header a:visited {
+    text-decoration: none;
+  }
+  #cust-info,
+  #movie-info {
+    border: 5px solid black;
+    padding-left: 10mm;
+  }
+  table {
+    margin-top: 10%;
+  }
+  #buttons {
+    display: none;
+  }
+  .row.row-cols-2 {
+    margin-top: 10%;
   }
 }

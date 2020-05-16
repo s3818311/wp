@@ -1,7 +1,6 @@
 <?php
 include "tools.php";
 session_start();
-// $sql_conn = &mysqliConn();
 
 if (isset($_POST['session-reset'])) {
     $reset_flag = session_destroy();
