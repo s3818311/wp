@@ -1,5 +1,5 @@
 <?php
-include "tools.php";
+include "./tools.php";
 session_start();
 
 if (empty($_SESSION)) header("Location: index.php#");
@@ -131,14 +131,12 @@ fclose($fp);
                     $iter = 1;
                     foreach ($_SESSION['seats'] as $type => $amount) {
                         if ($amount) {
+                            $price = $discount_flag ? numToStr($priceArr[$type][0] * $amount) : numToStr($priceArr[$type][1] * $amount);
                             echo "<tr>";
                             echo "<th scope=\"row\">{$iter}</th>";
                             echo "<td>{$seatAbbr[$type]}</td>";
                             echo "<td>{$amount}</td>";
-                            if ($discount_flag)
-                                echo "<td>" . numToStr($priceArr[$type][0] * (int) $amount) . "</td>";
-                            else
-                                echo "<td>" . numToStr($priceArr[$type][1] * (int) $amount) . "</td>";
+                            echo "<td>$" . $price . "</td>";
                             echo "</tr>";
 
                             $iter++;
@@ -146,11 +144,11 @@ fclose($fp);
                     }
                     echo "<tr>";
                     echo "<th colspan=\"3\" scope=\"row\">GST</th>";
-                    echo "<td>" . numToStr($GST) . "</td>";
+                    echo "<td>$" . numToStr($GST) . "</td>";
                     echo "</tr>";
                     echo "<tr>";
                     echo "<th colspan=\"3\" scope=\"row\">Total</th>";
-                    echo "<td>" . numToStr($total + $GST) . "</td>";
+                    echo "<td>$" . numToStr($total + $GST) . "</td>";
                     echo "</tr>";
                     ?>
                     <tr id="buttons">

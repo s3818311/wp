@@ -114,16 +114,16 @@ BOILERPLATE;
             echo "<tr>";
             echo "<th scope=\"row\">{$iter}.{$i}</th>";
             echo "<td>{$seatAbbr[$type]}</td>";
-            echo "<td>{$price}</td>";
+            echo "<td>$" . "$price" . "</td>";
             echo "</tr>";
 
             echo "<tr>";
             echo "<th colspan=\"2\" scope=\"row\">GST</th>";
-            echo "<td>" . numToStr($GST) . "</td>";
+            echo "<td>$" . numToStr($GST) . "</td>";
             echo "</tr>";
             echo "<tr>";
             echo "<th colspan=\"2\" scope=\"row\">Total</th>";
-            echo "<td>" . numToStr($price + $GST) . "</td>";
+            echo "<td>$" . numToStr($price + $GST) . "</td>";
             echo "</tr>";
 
             echo "</tbody>";

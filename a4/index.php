@@ -1,5 +1,5 @@
 <?php
-include "tools.php";
+include "./tools.php";
 session_start();
 
 if (isset($_POST['session-reset'])) {
