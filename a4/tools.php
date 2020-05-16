@@ -19,7 +19,33 @@ $hourAbbr = [
     'T21' => '21:00',
 ];
 
-function preShow($arr, $returnAsString = false) {
+$movieAbbr = [
+    "movieACT" => "Avengers: Endgame",
+    "movieRMC" => "Top End Wedding",
+    "movieANM" => "Dumbo",
+    "movieAHF" => "The Happy Prince",
+];
+
+$seatAbbr = [
+    'FCA' => "First Class Adult",
+    'FCP' => "First Class Concession",
+    'FCC' => "First Class Children",
+    'STA' => "Standard Adult",
+    'STP' => "Standard Concession",
+    'STC' => "Standard Children",
+];
+
+$priceArr = [
+    'FCA' => [24, 30],
+    'FCP' => [22.5, 27],
+    'FCC' => [21, 24],
+    'STA' => [14, 19.8],
+    'STP' => [12.5, 17.5],
+    'STC' => [11, 15.3],
+];
+
+function preShow($arr, $returnAsString = false)
+{
     $ret = '<pre>' . print_r($arr, true) . '</pre>';
     if ($returnAsString) {
         return $ret;
@@ -28,7 +54,8 @@ function preShow($arr, $returnAsString = false) {
     }
 }
 
-function printMyCode() {
+function printMyCode()
+{
     $lines = file($_SERVER['SCRIPT_FILENAME']);
     echo "<pre class='mycode'><ol>";
     foreach ($lines as $line) {
@@ -38,11 +65,13 @@ function printMyCode() {
     echo '</ol></pre>';
 }
 
-function php2js($phpName, $jsName) {
+function php2js($phpName, $jsName)
+{
     echo "<script>var {$jsName} = " . json_encode($phpName, JSON_PRETTY_PRINT | JSON_HEX_TAG) . "</script>\n";
 }
 
-function anyInArr($arr) {
+function anyInArr($arr)
+{
     foreach ($arr as $val) {
         if ($val) {
             return true;
@@ -51,6 +80,12 @@ function anyInArr($arr) {
     return false;
 }
 
-function sanitizeInp($inp) {
+function sanitizeInp($inp)
+{
     return (string) htmlspecialchars(stripslashes(trim($inp)));
+}
+
+function numToStr($num)
+{
+    return number_format((float) $num, 2, '.', '');
 }
