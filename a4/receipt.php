@@ -156,7 +156,7 @@ fclose($fp);
                             <button type="button" class="btn btn-dark btn-block btn-lg" onclick="window.print();">Print group ticket</button>
                         </td>
                         <td colspan="2">
-                            <form action="individual_ticket.php" method="post">
+                            <form action="individual_ticket.php" method="post" target="_blank">
                                 <input type="submit" value="Print individual ticket(s)" class="btn btn-dark btn-block btn-lg">
                             </form>
                         </td>
@@ -181,7 +181,7 @@ fclose($fp);
         </div>
         <div>
             <button id='toggleWireframeCSS' onclick='toggleWireframe()'>Toggle Wireframe CSS</button>
-            <form method="POST">
+            <form method="POST" action="index.php#">
                 <input type="submit" value="Reset current session" name='session-reset'>
             </form>
         </div>
