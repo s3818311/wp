@@ -134,6 +134,28 @@ BOILERPLATE;
         $iter++;
     }
     ?>
+
+    <footer>
+        <div>
+            Cinemax&trade; | Contact at: inquiries@cinemax.com | 0123456789 | 123A Nguyen Van Linh, District 7, Ho Chi Minh City, Vietnam
+        </div>
+        <div>&copy;
+            <script>
+                document.write(new Date().getFullYear());
+            </script> Huynh Ngoc Tuyen - s38318311. Last modified
+            <?= date("Y F d  H:i", filemtime($_SERVER['SCRIPT_FILENAME'])); ?>.
+        </div>
+        <div>
+            Disclaimer: This website is not a real website and is being developed as part of a School of Science Web Programming course at RMIT University in
+            Melbourne, Australia.
+        </div>
+        <div>
+            <button id='toggleWireframeCSS' onclick='toggleWireframe()'>Toggle Wireframe CSS</button>
+            <form method="POST" action="index.php#">
+                <input type="submit" value="Reset current session" name='session-reset'>
+            </form>
+        </div>
+    </footer>
 </body>
 
 </html>
