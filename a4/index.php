@@ -14,19 +14,19 @@ $generalErr = "";
 $chosenMov = "";
 // ----------
 $nameErr = "";
-$nameInp = "";
+$nameInp = isset($_POST['cust']['name']) ? $_POST['cust']['name'] : "";
 // ----------
 $emailErr = "";
-$emailInp = "";
+$emailInp = isset($_POST['cust']['email']) ? $_POST['cust']['email'] : "";
 // ----------
 $mobileErr = "";
-$mobileInp = "";
+$mobileInp = isset($_POST['cust']['mobile']) ? $_POST['cust']['mobile'] : "";
 // ----------
 $creditErr = "";
-$creditInp = "";
+$creditInp = isset($_POST['cust']['card']) ? $_POST['cust']['card'] : "";
 // ----------
 $expiryErr = "";
-$expiryInp = "";
+$expiryInp = isset($_POST['cust']['expiry']) ? $_POST['cust']['expiry'] : "";
 // ----------
 $total = 0;
 
@@ -45,59 +45,80 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else
         $generalErr = "At least 1 ticket is required";
 
-    $nameInp = $_POST['cust']['name'];
-    if (empty($_POST['cust']['name']))
-        $nameErr = "Please enter your name";
-    else if (!preg_match("/^[a-z \-\']+$/i", $nameInp)) {
-        $nameErr = "Only letters, whitespaces, apostrophes(') and hypens(-) are allowed";
-        $nameInp = sanitizeInp($nameInp);
-    } else {
-        $nameInp = sanitizeInp($nameInp);
-        $_SESSION['cust']['name'] = $nameInp;
+
+    $nameCheck = checkInpErr($nameInp, "name", preg_match("/^[a-z \-\']+$/i", $nameInp));
+    switch ($nameCheck[0]) {
+        case 0:
+            $nameInp = $nameCheck[1];
+            $_SESSION['cust']['name'] = $nameInp;
+            break;
+        case 1:
+            $nameErr = $nameCheck[1];
+            break;
+        case 2:
+            $nameInp = $nameCheck[1];
+            $nameErr = "Only letters, whitespaces, apostrophes(') and hypens(-) are allowed";
+            break;
     }
 
-    $emailInp = $_POST['cust']['email'];
-    if (empty($_POST['cust']['email']))
-        $emailErr = "Please enter an email";
-    else if (!filter_var($emailInp, FILTER_VALIDATE_EMAIL)) {
-        $emailErr = "Invalid email format";
-        $emailInp = sanitizeInp($emailInp);
-    } else {
-        $emailInp = sanitizeInp($emailInp);
-        $_SESSION['cust']['email'] = $emailInp;
+    $emailCheck = checkInpErr($emailInp, "email", filter_var($emailInp, FILTER_VALIDATE_EMAIL));
+    switch ($emailCheck[0]) {
+        case 0:
+            $emailInp = $emailCheck[1];
+            $_SESSION['cust']['email'] = $emailInp;
+            break;
+        case 1:
+            $emailErr = $emailCheck[1];
+            break;
+        case 2:
+            $emailInp = $emailCheck[1];
+            $emailErr = "Invalid email format";
+            break;
     }
 
-    $mobileInp = $_POST['cust']['mobile'];
-    if (empty($_POST['cust']['mobile']))
-        $mobileErr = "Please enter your mobile number";
-    else if (!preg_match("/^(\d\s*){9,10}$/", $mobileInp)) {
-        $mobileErr = "Invalid mobile number format";
-        $mobileInp = sanitizeInp($mobileInp);
-    } else {
-        $mobileInp = sanitizeInp($mobileInp);
-        $_SESSION['cust']['mobile'] = $mobileInp;
+    $mobileCheck = checkInpErr($mobileInp, "mobile", preg_match("/^(\d\s*){9,10}$/", $mobileInp));
+    switch ($mobileCheck[0]) {
+        case 0:
+            $mobileInp = $mobileCheck[1];
+            $_SESSION['cust']['mobile'] = $mobileInp;
+            break;
+        case 1:
+            $mobileErr = $mobileCheck[1];
+            break;
+        case 2:
+            $mobileInp = $mobileCheck[1];
+            $mobileErr = "Invalid mobile number format";
+            break;
     }
 
-    $creditInp = $_POST['cust']['card'];
-    if (empty($_POST['cust']['card']))
-        $creditErr = "Please enter your credit card number";
-    else if (!preg_match("/^(\d\s*){14,19}$/", $creditInp)) {
-        $creditErr = "Invalid credit card format";
-        $creditInp = sanitizeInp($creditInp);
-    } else {
-        $creditInp = sanitizeInp($creditInp);
-        $_SESSION['cust']['card'] = $creditInp;
+    $creditCheck = checkInpErr($creditInp, "credit card number", preg_match("/^(\d\s*\-*){14,19}$/", $creditInp));
+    switch ($creditCheck[0]) {
+        case 0:
+            $creditInp = $creditCheck[1];
+            $_SESSION['cust']['card'] = $creditInp;
+            break;
+        case 1:
+            $creditErr = $creditCheck[1];
+            break;
+        case 2:
+            $creditInp = $creditCheck[1];
+            $creditErr = "Invalid credit card format";
+            break;
     }
 
-    $expiryInp = $_POST['cust']['expiry'];
-    if (empty($_POST['cust']['expiry']))
-        $expiryErr = "Please enter the expiry date of your credit card";
-    else if ((new Datetime($expiryInp))->format("Y-m") < date("Y-m", strtotime("+28 days"))) {
-        $expiryErr = "Invalid date, must be greater than " . date("F Y", strtotime("+28 days"));
-        $expiryInp = sanitizeInp($expiryInp);
-    } else {
-        $expiryInp = sanitizeInp($expiryInp);
-        $_SESSION['cust']['expiry'] = $expiryInp;
+    $expiryCheck = checkInpErr($expiryInp, "credit card's expiry date", !((new Datetime($expiryInp))->format("Y-m") < date("Y-m", strtotime("+28 days"))));
+    switch ($expiryCheck[0]) {
+        case 0:
+            $expiryInp = $expiryCheck[1];
+            $_SESSION['cust']['expiry'] = $expiryInp;
+            break;
+        case 1:
+            $expiryErr = $expiryCheck[1];
+            break;
+        case 2:
+            $expiryInp = $expiryCheck[1];
+            $expiryErr = "Invalid date, must be greater than " . date("F Y", strtotime("+28 days"));
+            break;
     }
 
     if (empty($generalErr . $nameErr . $emailErr . $mobileErr . $creditErr . $expiryErr)) header("Location: receipt.php#");
@@ -579,16 +600,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </form>
         </div>
     </footer>
-
+    <?php
+    echo "<h2>Your Input:</h2>";
+    echo "\$_POST: ";
+    preShow($_POST);
+    echo "\$_SESSION: ";
+    preShow($_SESSION);
+    printMyCode();
+    ?>
 </body>
 
 </html>
-
-<?php
-echo "<h2>Your Input:</h2>";
-echo "\$_POST: ";
-preShow($_POST);
-echo "\$_SESSION: ";
-preShow($_SESSION);
-printMyCode();
-?>
