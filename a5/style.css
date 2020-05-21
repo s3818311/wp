@@ -31,26 +31,17 @@ body {
   padding: 2% 0;
 }
 
-#categories,
-#topselling {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-bottom: 2%;
-}
-
 #categories img,
 #categories button {
   border-radius: 0;
 }
 
 section a {
-  width: 18rem;
-  max-height: 239px;
+  margin: 11px 0;
+}
+
+.card {
   transition: box-shadow 0.2s ease;
-  position: relative;
-  margin: 11px 6px;
-  overflow: hidden;
 }
 
 .card:hover {
@@ -85,13 +76,9 @@ section a {
   bottom: 0;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 18px;
+  font-size: 1.25rem;
   color: azure;
   user-select: none;
-}
-
-#topselling .card-caption {
-  transform: translate(-50%, -10%);
 }
 
 #login-section {
@@ -122,6 +109,9 @@ input[type="submit"] {
 #item-section {
   min-height: 100vh;
   padding-top: 2%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 div.col-md-6 img {
@@ -129,8 +119,11 @@ div.col-md-6 img {
 }
 
 #itemForm {
-  bottom: 0;
-  position: absolute;
+  margin-top: 3rem;
+}
+
+#itemForm input[type="text"] {
+  width: 90px;
 }
 
 #itemForm input[type="number"] {

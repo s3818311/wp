@@ -57,6 +57,9 @@ if (isset($_POST['session-reset']) || isset($_POST['admin-logout'])) {
                     <a class="nav-link active" href="product.php#">Browse</a>
                 </li>
             </ul>
+            <form action="checkout.php#">
+                <button class="btn btn-outline-success mr-1 my-2 my-sm-0" type="submit" id="checkOutBtn">🛒</button>
+            </form>
             <form action="login.php#">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Log In</button>
             </form>

@@ -54,55 +54,67 @@ if (isset($_POST['session-reset']) || isset($_POST['admin-logout'])) {
                     <a class="nav-link" href="index.php#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="product.php#">Browse</a>
+                    <a class="nav-link" href="browse.php#">Browse</a>
                 </li>
             </ul>
+            <form action="checkout.php#">
+                <button class="btn btn-outline-success mr-1 my-2 my-sm-0" type="submit" id="checkOutBtn">🛒</button>
+            </form>
             <form action="login.php#">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Log In</button>
             </form>
         </div>
     </nav>
 
-    <?php
-    $itemInfo = mysqli_query($conn, "SELECT * FROM item I, cpu C WHERE I.id = '{$_GET['item']}' AND C.id = I.id;");
-    if (mysqli_num_rows($itemInfo) != 1) {
-        echo "An error has occurred. Redirecting back to home page";
-        sleep(3);
-        header("Location: index.php#");
-    }
-    $row = mysqli_fetch_assoc($itemInfo);
-    $overclockable = (bool) $row['overclockable'] ? "Yes" : "No";
-    $base_clock = numToStr($row['base_clock']);
-    $boost_clock = numToStr($row['max_boost_clock']);
-    echo <<<BOILERPLATE
-<section id="item-section" class="container-fluid">
-    <div class="row">
-        <div class="col-md-6">
-            <img src="./media/{$row['img_name']}" alt="{$row['display_name']}">
-        </div>
-        <div class="col-md-6">
-            <h2>{$row['display_name']}</h2>
-            <ul>
-                <li>Number of cores: {$row['cores']}</li>
-                <li>Number of threads: {$row['threads']}</li>
-                <li>Unlocked/Overclockable: {$overclockable}</li>
-                <li>Base clock: {$base_clock}GHz</li>
-                <li>Max Boost Clock: {$boost_clock}GHz</li>
-                <li>Integrated Graphics: {$row['igpu']}</li>
-                <li>TDP: {$row['tdp']}W</li>
-                <li>Socket: {$row['socket']}</li>
-            </ul>
+    <section id="item-section" class="container-fluid">
+        <div class="row">
+            <?php
+            $category = mysqli_query($conn, "SELECT name FROM category WHERE id = '{$_GET['category_id']}'");
+            $category = mysqli_fetch_assoc($category)['name'];
+            $itemInfo = mysqli_query($conn, "SELECT * FROM item I, {$category} C WHERE I.id = '{$_GET['item']}' AND C.id = I.id;");
+            $row = mysqli_fetch_assoc($itemInfo);
+            $info_arr = [];
+
+            if ($category == "CPU") {
+                $overclockable = ((bool) $row['overclockable']) ? "Yes" : "No";
+                $base_clock = numToStr($row['base_clock']);
+                $boost_clock = numToStr($row['max_boost_clock']);
+
+                $info_arr = [
+                    "Number of cores" => $row['cores'],
+                    "Number of threads" => $row['threads'],
+                    "Unlocked/Overclockable" => $overclockable,
+                    "Base clock" => $base_clock . "GHz",
+                    "Max Boost Clock" => $boost_clock . "GHz",
+                    "Integrated Graphics" => $row['igpu'],
+                    "TDP" => $row['tdp'] . "W",
+                    "Socket" => $row['socket']
+                ];
+            } else if ($category == "Motherboard") {
+            } else if ($category == "GPU") {
+            } else if ($category == "RAM") {
+            }
+
+            echo "<div class=\"col-md-6\">";
+            echo "    <img src=\"./media/{$row['img_name']}\" alt=\"{$row['display_name']}\">";
+            echo "</div>";
+            echo "<div class=\"col-md-6\">";
+            echo "    <h2>{$row['display_name']}</h2>";
+            echo "    <ul>";
+            foreach ($info_arr as $field => $value)
+                echo "<li>{$field}: {$value}</li>";
+            echo "    </ul>";
+            ?>
             <form action="checkout.php#" method="POST" id="itemForm">
+                <label for="price">Price: $</label>
+                <input type="text" value="<?php echo $row['price'] ?>" id="price" name="price" readonly>
                 <label for="amount">Amount</label>
-                <input type="number" name="itemAmount" id="amount" max="10">
+                <input type="number" name="itemAmount" id="amount" max="10" min="0">
                 <input type="submit" value="Add to cart">
             </form>
+            <?php echo "</div>"; ?>
         </div>
-    </div>
-</section>
-BOILERPLATE;
-
-    ?>
+    </section>
     <footer>
         <div>
             <form method="POST">

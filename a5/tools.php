@@ -3,6 +3,7 @@
 $conn = mysqli_connect("localhost", "root", "root", "mydb", "3308");
 
 $category_table = mysqli_query($conn, "SELECT * FROM category;");
+$item_table = mysqli_query($conn, "SELECT * FROM item;");
 $admin_table = mysqli_query($conn, "SELECT * FROM admin;");
 $topselling_table = mysqli_query($conn, "SELECT * FROM item ORDER BY units_sold DESC;");
 

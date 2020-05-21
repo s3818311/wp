@@ -12,6 +12,23 @@ if (isset($_POST['session-reset'])) {
 
 if (!isset($_SESSION['login']['username']) || !isset($_SESSION['login']['password'])) header("Location: index.php#");
 
+$errMsg = "";
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    if (isset($_POST['category-submit'])) {
+        if (empty($_POST['category']['id']) || empty($_POST['category']['name']) || empty($_POST['category']['img_name'])) {
+            $errMsg = "Can't insert empty row data";
+        } else {
+            $id = mysqli_escape_string($conn, sanitizeInp($_POST['category']['id']));
+            $name = mysqli_escape_string($conn, sanitizeInp($_POST['category']['name']));
+            $img_name = mysqli_escape_string($conn, sanitizeInp($_POST['category']['img_name']));
+            $query = "INSERT INTO category VALUES ('{$id}', '{$name}', '{$img_name}')";
+            if (mysqli_query($conn, $query)) $errMsg = "Row added successfully";
+            else $errMsg = "Error: " . mysqli_error($conn);
+        }
+    }
+    mysqli_refresh($conn, MYSQLI_REFRESH_TABLES);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -71,28 +88,43 @@ if (!isset($_SESSION['login']['username']) || !isset($_SESSION['login']['passwor
         </div>
 
         <div id="Categories" class="tabcontent">
-            <form action="admin.php#" method="POST">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">name</th>
-                            <th scope="col">img_name</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">name</th>
+                        <th scope="col">img_name</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    if (mysqli_num_rows($category_table) > 0) {
                         while ($row = mysqli_fetch_assoc($category_table)) {
                             echo "<tr class=\"categoryRow\">";
-                            echo "<td><input name=\"category[name][{$row['name']}]\" type=\"text\" value=\"{$row['name']}\" readonly></td>";
-                            echo "<td><input name=\"category[img_name][{$row['img_name']}]\" type=\"text\" value=\"{$row['img_name']}\" readonly></td>";
+                            echo "<td>{$row['id']}</td>";
+                            echo "<td>{$row['name']}</td>";
+                            echo "<td>{$row['img_name']}</td>";
                             echo "<td><button type=\"button\">Edit</button></td>";
+                            echo "<td><a href=\"delete.php?table=category&id={$row['id']}\">Delete</a></td>";
                             echo "</tr>";
                         }
-                        ?>
-                    </tbody>
+                    } else echo "<tr><td colspan=5>No results found</td></tr>";
+                    ?>
+                </tbody>
+            </table>
+            <form action="admin.php#" method="POST">
+                <table class="table table-hover table-bordered">
+                    <tr class="categoryRow">
+                        <td>id: <input type="text" name="category[id]"></td>
+                        <td>name: <input type="text" name="category[name]"></td>
+                        <td>img_name: <input type="text" name="category[img_name]"></td>
+                        <td><button type="submit" name="category-submit">Add</button></td>
+                    </tr>
                 </table>
             </form>
+            <?php echo $errMsg; ?>
         </div>
 
         <div id="Items" class="tabcontent">
