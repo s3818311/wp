@@ -10,11 +10,6 @@ if (isset($_POST['session-reset']) || isset($_POST['admin-logout'])) {
     } else exit("Session failed to reset");
 }
 
-$category = isset($_GET['category']) ? $_GET['category'] : "";
-$item = isset($_GET['item']) ? $_GET['item'] : "";
-
-if ((bool) $category && (bool) $item) header("Location: index.php#");
-
 ?>
 
 <!DOCTYPE html>
@@ -69,18 +64,17 @@ if ((bool) $category && (bool) $item) header("Location: index.php#");
     </nav>
 
     <?php
-    if ($item) {
-        $itemInfo = mysqli_query($conn, "SELECT * FROM item I, cpu C WHERE I.id = '{$_GET['item']}' AND C.id = I.id;");
-        if (mysqli_num_rows($itemInfo) != 1) {
-            echo "An error has occurred. Redirecting back to home page";
-            sleep(3);
-            header("Location: index.php#");
-        }
-        $row = mysqli_fetch_assoc($itemInfo);
-        $overclockable = (bool) $row['overclockable'] ? "Yes" : "No";
-        $base_clock = numToStr($row['base_clock']);
-        $boost_clock = numToStr($row['max_boost_clock']);
-        echo <<<BOILERPLATE
+    $itemInfo = mysqli_query($conn, "SELECT * FROM item I, cpu C WHERE I.id = '{$_GET['item']}' AND C.id = I.id;");
+    if (mysqli_num_rows($itemInfo) != 1) {
+        echo "An error has occurred. Redirecting back to home page";
+        sleep(3);
+        header("Location: index.php#");
+    }
+    $row = mysqli_fetch_assoc($itemInfo);
+    $overclockable = (bool) $row['overclockable'] ? "Yes" : "No";
+    $base_clock = numToStr($row['base_clock']);
+    $boost_clock = numToStr($row['max_boost_clock']);
+    echo <<<BOILERPLATE
 <section id="item-section" class="container-fluid">
     <div class="row">
         <div class="col-md-6">
@@ -107,7 +101,7 @@ if ((bool) $category && (bool) $item) header("Location: index.php#");
     </div>
 </section>
 BOILERPLATE;
-    }
+
     ?>
     <footer>
         <div>

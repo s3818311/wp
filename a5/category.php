@@ -51,62 +51,17 @@ if (isset($_POST['session-reset']) || isset($_POST['admin-logout'])) {
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" href="index.php#">Home</a>
+                    <a class="nav-link" href="index.php#">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="product.php#">Browse</a>
                 </li>
             </ul>
-            <form action="checkout.php#">
-                <button class="btn btn-outline-success mr-1 my-2 my-sm-0" type="submit" id="checkOutBtn">🛒</button>
-            </form>
             <form action="login.php#">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Log In</button>
             </form>
         </div>
     </nav>
-
-    <section>
-        <div id="showcaseCarousel" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="carousel-image" id="carousel-img1"></div>
-                </div>
-                <div class="carousel-item">
-                    <div class="carousel-image" id="carousel-img2"></div>
-                </div>
-                <div class="carousel-item">
-                    <div class="carousel-image" id="carousel-img3"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="category-section" class="container-fluid">
-        <div class="section-header"><span>Categories</span></div>
-        <div id="categories">
-            <?php
-            while ($row = mysqli_fetch_assoc($category_table)) {
-                echo "<a href=\"category.php?category={$row["name"]}\">";
-                echo getHtmlCard($row["name"], $row["img_name"]);
-                echo "</a>";
-            }
-            ?>
-        </div>
-    </section>
-
-    <section id="topselling-section" class="container-fluid">
-        <div class="section-header"><span>Top Selling Products</span></div>
-        <div id="topselling">
-            <?php
-            while ($row = mysqli_fetch_assoc($topselling_table)) {
-                echo "<a href=\"product.php?item={$row["id"]}\">";
-                echo getHtmlCard($row["display_name"], $row["img_name"]);
-                echo "</a>";
-            }
-            ?>
-        </div>
-    </section>
 
     <footer>
         <div>
