@@ -54,7 +54,7 @@ if (isset($_POST['session-reset']) || isset($_POST['admin-logout'])) {
                     <a class="nav-link" href="index.php#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="product.php#">Browse</a>
+                    <a class="nav-link active" href="product.php#">Browse</a>
                 </li>
             </ul>
             <form action="login.php#">
@@ -62,6 +62,7 @@ if (isset($_POST['session-reset']) || isset($_POST['admin-logout'])) {
             </form>
         </div>
     </nav>
+
 
     <footer>
         <div>
