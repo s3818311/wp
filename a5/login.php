@@ -10,8 +10,8 @@ if (isset($_POST['session-reset'])) {
     } else exit("Session failed to reset");
 }
 
-$usernameInp = isset($_POST['login']['username']) ? $_POST['login']['username'] : "";
-$passwordInp = isset($_POST['login']['password']) ? $_POST['login']['password'] : "";
+$usernameInp = isset($_POST['login']['username']) ? $_POST['login']['username'] : $_SESSION['login']['username'];
+$passwordInp = isset($_POST['login']['password']) ? $_POST['login']['password'] : $_SESSION['login']['password'];
 $userInpErr = "";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -82,7 +82,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <li class="nav-item">
                     <a class="nav-link" href="index.php#">Home</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="browse.php#">Browse</a>
+                </li>
             </ul>
+            <form action="checkout.php#">
+                <button class="btn btn-outline-success mr-1 my-2 my-sm-0" type="submit" id="checkOutBtn">🛒</button>
+            </form>
             <form action="login.php#" method="POST">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Log In</button>
             </form>
