@@ -54,7 +54,7 @@ if (isset($_POST['session-reset']) || isset($_POST['admin-logout'])) {
                     <a class="nav-link active" href="index.php#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="product.php#">Browse</a>
+                    <a class="nav-link" href="browse.php#">Browse</a>
                 </li>
             </ul>
             <form action="checkout.php#">
@@ -84,10 +84,10 @@ if (isset($_POST['session-reset']) || isset($_POST['admin-logout'])) {
 
     <section id="category-section" class="container-fluid">
         <div class="section-header"><span>Categories</span></div>
-        <div id="categories">
+        <div id="categories" class="row">
             <?php
             while ($row = mysqli_fetch_assoc($category_table)) {
-                echo "<a href=\"category.php?category={$row["name"]}\">";
+                echo "<a href=\"browse.php?category_id={$row["id"]}\" class=\"col-md-4\">";
                 echo getHtmlCard($row["name"], $row["img_name"]);
                 echo "</a>";
             }
@@ -97,10 +97,10 @@ if (isset($_POST['session-reset']) || isset($_POST['admin-logout'])) {
 
     <section id="topselling-section" class="container-fluid">
         <div class="section-header"><span>Top Selling Products</span></div>
-        <div id="topselling">
+        <div id="topselling" class="row">
             <?php
             while ($row = mysqli_fetch_assoc($topselling_table)) {
-                echo "<a href=\"product.php?item={$row["id"]}\">";
+                echo "<a href=\"item.php?category_id={$row["category_id"]}&item={$row["id"]}\" class=\"col-md-4\">";
                 echo getHtmlCard($row["display_name"], $row["img_name"]);
                 echo "</a>";
             }
