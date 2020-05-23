@@ -196,11 +196,11 @@ main article {
   height: 100%;
   padding: 1%;
 }
-#poster {
+.poster {
   height: 100%;
   text-align: center;
 }
-#poster img {
+.poster img {
   max-width: 364px;
   max-height: 490px;
   border: 2px solid #000;
@@ -208,7 +208,7 @@ main article {
   transition: border 0.2s, box-shadow 0.2s;
   cursor: pointer;
 }
-#poster img:hover {
+.poster img:hover {
   border: 2px solid transparent;
   box-shadow: 5px 10px #000;
 }

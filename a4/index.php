@@ -272,7 +272,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="row align-items-center">
                     <div class="movie col-lg-6">
                         <div class="row align-items-center">
-                            <div id="poster" class="col-sm-5"><img src="../media/Avengers_Endgame_poster.webp" alt="Avengers: Endgame" id='movieACT'></div>
+                            <div class="col-sm-5 poster"><img src="../media/Avengers_Endgame_poster.webp" alt="Avengers: Endgame" id='movieACT'></div>
                             <div class="movie-info col-sm-7">
                                 <p>Avengers: Endgame</p>
                                 <p>(M)</p>
@@ -311,7 +311,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
                     <div class="movie col-lg-6">
                         <div class="row align-items-center">
-                            <div id="poster" class="col-sm-5"><img src="../media/Top_End_Wedding_poster.webp" alt="Top End Wedding" id='movieRMC'></div>
+                            <div class="col-sm-5 poster"><img src="../media/Top_End_Wedding_poster.webp" alt="Top End Wedding" id='movieRMC'></div>
                             <div class="movie-info col-sm-7">
                                 <p>Top End Wedding</p>
                                 <p>(M)</p>
@@ -353,7 +353,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="row align-items-center">
                     <div class="movie col-lg-6">
                         <div class="row align-items-center">
-                            <div id="poster" class="col-sm-5"><img src="../media/Dumbo_poster.webp" alt="Dumbo" id='movieANM'></div>
+                            <div class="col-sm-5 poster"><img src="../media/Dumbo_poster.webp" alt="Dumbo" id='movieANM'></div>
                             <div class="movie-info col-sm-7">
                                 <p>Dumbo</p>
                                 <p>(PG)</p>
@@ -393,7 +393,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                     <div class="movie col-lg-6">
                         <div class="row align-items-center">
-                            <div id="poster" class="col-sm-5"><img src="../media/The_Happy_Prince_poster.webp" alt="The Happy Prince" id='movieAHF'></div>
+                            <div class="col-sm-5 poster"><img src="../media/The_Happy_Prince_poster.webp" alt="The Happy Prince" id='movieAHF'></div>
                             <div class="movie-info col-sm-7">
                                 <p>The Happy Prince</p>
                                 <p>(MA15+)</p>
@@ -454,32 +454,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <p>Make a booking for: <span></span></p>
                     <p><span class="err-span"><?php echo $generalErr ?></span></p>
                     <div class='booking-date'>
-                        <input type="radio" name="booking" id='SUN'>
-                        <label for='SUN'></label>
+                        <input type="radio" name="booking" id='SUN' class="booking-date-inp">
+                        <label for='SUN' class="booking-date-label"></label>
                     </div>
                     <div class='booking-date'>
-                        <input type="radio" name="booking" id='MON'>
-                        <label for='MON'></label>
+                        <input type="radio" name="booking" id='MON' class="booking-date-inp">
+                        <label for='MON' class="booking-date-label"></label>
                     </div>
                     <div class='booking-date'>
-                        <input type="radio" name="booking" id='TUE'>
-                        <label for='TUE'></label>
+                        <input type="radio" name="booking" id='TUE' class="booking-date-inp">
+                        <label for='TUE' class="booking-date-label"></label>
                     </div>
                     <div class='booking-date'>
-                        <input type="radio" name="booking" id='WED'>
-                        <label for='WED'></label>
+                        <input type="radio" name="booking" id='WED' class="booking-date-inp">
+                        <label for='WED' class="booking-date-label"></label>
                     </div>
                     <div class='booking-date'>
-                        <input type="radio" name="booking" id='THU'>
-                        <label for='THU'></label>
+                        <input type="radio" name="booking" id='THU' class="booking-date-inp">
+                        <label for='THU' class="booking-date-label"></label>
                     </div>
                     <div class='booking-date'>
-                        <input type="radio" name="booking" id='FRI'>
-                        <label for='FRI'></label>
+                        <input type="radio" name="booking" id='FRI' class="booking-date-inp">
+                        <label for='FRI' class="booking-date-label"></label>
                     </div>
                     <div class='booking-date'>
-                        <input type="radio" name="booking" id='SAT'>
-                        <label for='SAT'></label>
+                        <input type="radio" name="booking" id='SAT' class="booking-date-inp">
+                        <label for='SAT' class="booking-date-label"></label>
                     </div>
                     <input type="hidden" name="movie[day]">
                     <input type="hidden" name="movie[hour]">

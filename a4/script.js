@@ -1,33 +1,3 @@
-let nav_bar = document.getElementById('navigation')
-let nav_links = document.querySelectorAll('.nav-item')
-
-document.addEventListener('scroll', () => {
-    nav_links.forEach(nav_link => {
-        if (nav_link.classList.contains('active')) {
-            switch (nav_link.innerText) {
-                case 'About Us':
-                    nav_bar.style.backgroundColor = 'black';
-                    break;
-                case 'Pricing':
-                    nav_bar.style.backgroundColor = 'darkslategrey';
-                    break;
-                case 'Now Showing':
-                    nav_bar.style.backgroundColor = '#424874';
-                    break;
-                default:
-                    nav_bar.style.backgroundColor = 'black';
-                    break;
-            }
-        }
-    })
-})
-/* -------------------------------------------------------------- */
-
-const synopsis = document.getElementById('synopsis')
-synopsis.style.display = 'none'
-
-/* -------------------------------------------------------------- */
-
 const movies = {
     "movieACT": {
         "name": "Avengers: Endgame",
@@ -59,16 +29,6 @@ const movies = {
     }
 }
 
-
-let info = document.getElementById('info')
-let movie_title = info.children[0].children[0]
-let movie_rating = info.children[0].children[1]
-let movie_plot = info.children[3]
-let movie_input = info.children[4]
-let inputs = document.querySelectorAll('input[name=\'booking\']')
-let labels = document.querySelectorAll('.booking-date label')
-let discount_flag = false;
-
 const day = {
     0: 'Sunday',
     1: 'Monday',
@@ -79,10 +39,31 @@ const day = {
     6: 'Saturday'
 }
 
+const times = {
+    '12:00': 'T12',
+    '15:00': 'T15',
+    '18:00': 'T18',
+    '21:00': 'T21'
+}
+
+let nav_bar = document.getElementById('navigation')
+let nav_links = document.getElementsByClassName('nav-item')
+
+const synopsis = document.getElementById('synopsis')
+
+let info = document.getElementById('info')
+let movie_title = info.children[0].children[0]
+let movie_rating = info.children[0].children[1]
+let movie_plot = info.children[3]
+let movie_input = info.children[4]
+let inputs = document.getElementsByClassName('booking-date-inp')
+let labels = document.getElementsByClassName('booking-date-label')
+let discount_flag = false;
+
 const updateShowtime = movie => {
     let showtimes = movie.showtime
 
-    for (let i = 0; i < showtimes.length; i++) {
+    for (let i = 0; i < 7; i++) {
         const time = showtimes[i]
         const input = inputs[i]
         const label = labels[i]
@@ -98,38 +79,9 @@ const updateShowtime = movie => {
 }
 
 let trailer = document.getElementsByTagName('iframe')[0]
-let posters = document.querySelectorAll('#poster')
+let posters = document.getElementsByClassName('poster')
 let booking_title = document.querySelector('#booking-form div + p > span')
 
-if (chosenMov) {
-    let movie = movies[chosenMov]
-    movie_title.innerHTML = movie.name
-    booking_title.innerText = movie.name
-    movie_rating.innerHTML = '(' + movie.rating + ')'
-    movie_plot.innerText = movie.plot
-    trailer.src = movie.trailer
-    movie_input.value = chosenMov
-    if (synopsis.style.display === 'none') synopsis.style.display = ''
-    updateShowtime(movie)
-}
-
-posters.forEach(poster => {
-    poster.addEventListener('click', (e) => {
-        let movie = movies[e.target.id]
-        movie_title.innerHTML = movie.name
-        booking_title.innerText = movie.name
-        movie_rating.innerHTML = '(' + movie.rating + ')'
-        movie_plot.innerText = movie.plot
-        trailer.src = movie.trailer
-        movie_input.value = e.target.id
-        if (synopsis.style.display === 'none') synopsis.style.display = ''
-        updateShowtime(movie)
-
-        window.scrollTo(0, synopsis.offsetTop - document.getElementsByTagName('nav')[0].clientHeight)
-    })
-});
-
-/* -------------------------------------------------------------- */
 let total = document.getElementById('total');
 let prices = {
     'FCA': [24, 30],
@@ -141,13 +93,6 @@ let prices = {
 }
 
 const decimalFmt = num => (Math.round(num * 100) / 100).toFixed(2)
-
-for (const price of document.querySelectorAll('.price-special'))
-    price.innerHTML = `<sup>$</sup>${decimalFmt(prices[price.classList[1]][0])}<span>*</span>`
-
-for (const price of document.querySelectorAll('.price-normal'))
-    price.innerHTML = `<sup>$</sup>${decimalFmt(prices[price.classList[1]][1])}`
-
 
 const updateTotal = () => {
     let seats = [...document.getElementsByClassName('seats')].map(s => s.value ? Number(s.value) : 0)
@@ -162,26 +107,67 @@ const updateTotal = () => {
 }
 
 let seats = document.getElementsByClassName('seats')
+
+let input_divs = document.getElementsByClassName('booking-date')
+
+/* -------------------------------------------------------------- */
+
+document.addEventListener('scroll', () =>
+    nav_links[0].classList.contains('active') ? nav_bar.style.backgroundColor = 'black'
+        : (nav_links[1].classList.contains('active')) ? nav_bar.style.backgroundColor = 'darkslategrey'
+            : (nav_links[2].classList.contains('active')) ? nav_bar.style.backgroundColor = '#424874'
+                : nav_bar.style.backgroundColor = 'black')
+
+/* -------------------------------------------------------------- */
+
+if (chosenMov) {
+    let movie = movies[chosenMov]
+    movie_title.innerHTML = movie.name
+    booking_title.innerText = movie.name
+    movie_rating.innerHTML = '(' + movie.rating + ')'
+    movie_plot.innerText = movie.plot
+    trailer.src = movie.trailer
+    movie_input.value = chosenMov
+    updateShowtime(movie)
+}
+else synopsis.style.display = 'none'
+
+/* -------------------------------------------------------------- */
+
+for (const poster of posters) {
+    poster.addEventListener('click', (e) => {
+        let movie = movies[e.target.id]
+        movie_title.innerHTML = movie.name
+        booking_title.innerText = movie.name
+        movie_rating.innerHTML = '(' + movie.rating + ')'
+        movie_plot.innerText = movie.plot
+        trailer.src = movie.trailer
+        movie_input.value = e.target.id
+        if (synopsis.style.display) synopsis.style.display = ''
+        updateShowtime(movie)
+
+        window.scrollTo(0, synopsis.offsetTop - nav_bar.clientHeight)
+    })
+}
+
+/* -------------------------------------------------------------- */
+
+for (const price of document.getElementsByClassName('price-special'))
+    price.innerHTML = `<sup>$</sup>${decimalFmt(prices[price.classList[1]][0])}<span>*</span>`
+
+for (const price of document.getElementsByClassName('price-normal'))
+    price.innerHTML = `<sup>$</sup>${decimalFmt(prices[price.classList[1]][1])}`
+
 for (const seat of seats) seat.addEventListener('change', updateTotal)
 
 /* -------------------------------------------------------------- */
 
-const times = {
-    '12:00': 'T12',
-    '15:00': 'T15',
-    '18:00': 'T18',
-    '21:00': 'T21'
-}
-
-let input_divs = document.querySelectorAll('.booking-date')
 for (let i = 0; i < input_divs.length; i++) {
     input_divs[i].addEventListener('click', () => {
         if (!(inputs[i].checked)) return
 
         let day = inputs[i].id
         let time = times[(labels[i].innerText).split('\n')[1]]
-        console.log(day)
-        console.log(time)
         document.querySelector('input[name=\'movie[day]\']').value = day
         document.querySelector('input[name=\'movie[hour]\']').value = time
 
@@ -194,5 +180,3 @@ for (let i = 0; i < input_divs.length; i++) {
         updateTotal()
     })
 }
-
-/* -------------------------------------------------------------- */
