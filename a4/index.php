@@ -14,19 +14,19 @@ $generalErr = "";
 $chosenMov = "";
 // ----------
 $nameErr = "";
-$nameInp = isset($_POST['cust']['name']) ? $_POST['cust']['name'] : "";
+$nameInp = isset($_POST['cust']['name']) ? $_POST['cust']['name'] : $_SESSION['cust']['name'];
 // ----------
 $emailErr = "";
-$emailInp = isset($_POST['cust']['email']) ? $_POST['cust']['email'] : "";
+$emailInp = isset($_POST['cust']['email']) ? $_POST['cust']['email'] : $_SESSION['cust']['email'];
 // ----------
 $mobileErr = "";
-$mobileInp = isset($_POST['cust']['mobile']) ? $_POST['cust']['mobile'] : "";
+$mobileInp = isset($_POST['cust']['mobile']) ? $_POST['cust']['mobile'] : $_SESSION['cust']['mobile'];
 // ----------
 $creditErr = "";
-$creditInp = isset($_POST['cust']['card']) ? $_POST['cust']['card'] : "";
+$creditInp = isset($_POST['cust']['card']) ? $_POST['cust']['card'] : $_SESSION['cust']['card'];
 // ----------
 $expiryErr = "";
-$expiryInp = isset($_POST['cust']['expiry']) ? $_POST['cust']['expiry'] : "";
+$expiryInp = isset($_POST['cust']['expiry']) ? $_POST['cust']['expiry'] : $_SESSION['cust']['expiry'];
 // ----------
 $total = 0;
 
@@ -106,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             break;
     }
 
-    $expiryCheck = checkInpErr($expiryInp, "credit card's expiry date", !((new Datetime($expiryInp))->format("Y-m") < date("Y-m", strtotime("+28 days"))));
+    $expiryCheck = checkInpErr($expiryInp, "credit card's expiry date", (new Datetime($expiryInp))->format("Y-m") > date("Y-m", strtotime("+28 days")));
     switch ($expiryCheck[0]) {
         case 0:
             $expiryInp = $expiryCheck[1];
