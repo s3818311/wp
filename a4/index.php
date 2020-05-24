@@ -2,14 +2,6 @@
 include "./tools.php";
 session_start();
 
-if (isset($_POST['session-reset'])) {
-    $reset_flag = session_destroy();
-    if ($reset_flag) {
-        unset($_POST['session-reset']);
-        header("Location: index.php#");
-    } else exit("Session failed to reset");
-}
-
 $generalErr = "";
 $chosenMov = "";
 // ----------
@@ -595,9 +587,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
         <div>
             <button id='toggleWireframeCSS' onclick='toggleWireframe()'>Toggle Wireframe CSS</button>
-            <form method="POST">
-                <input type="submit" value="Reset current session" name='session-reset'>
-            </form>
         </div>
     </footer>
     <?php

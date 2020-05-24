@@ -50,6 +50,12 @@
     color: #f9ed69;
     margin: 0;
   }
+  #header-row div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: right;
+  }
   section {
     background-color: #d4d4d4;
   }
@@ -121,14 +127,23 @@
   }
   header span {
     font-family: "Pare Reverse";
-    font-size: 150pt;
+    font-size: 100pt;
     font-weight: bolder;
     letter-spacing: 6px;
     color: #000;
   }
+  header p {
+    font-size: 15pt;
+  }
   header a:link,
   header a:visited {
     text-decoration: none;
+  }
+  #header-row div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: right;
   }
   #cust-info,
   #movie-info {
@@ -143,5 +158,9 @@
   }
   .row.row-cols-2 {
     margin-top: 10%;
+  }
+  .row {
+    margin: auto;
+    padding: 0;
   }
 }

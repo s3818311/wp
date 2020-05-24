@@ -51,15 +51,6 @@ let nav_links = document.getElementsByClassName('nav-item')
 
 const synopsis = document.getElementById('synopsis')
 
-let info = document.getElementById('info')
-let movie_title = info.children[0].children[0]
-let movie_rating = info.children[0].children[1]
-let movie_plot = info.children[3]
-let movie_input = info.children[4]
-let inputs = document.getElementsByClassName('booking-date-inp')
-let labels = document.getElementsByClassName('booking-date-label')
-let discount_flag = false;
-
 const updateShowtime = movie => {
     let showtimes = movie.showtime
 
@@ -133,6 +124,15 @@ if (chosenMov) {
 else synopsis.style.display = 'none'
 
 /* -------------------------------------------------------------- */
+
+let info = document.getElementById('info')
+let movie_title = info.children[0].children[0]
+let movie_rating = info.children[0].children[1]
+let movie_plot = info.children[3]
+let movie_input = info.children[4]
+let inputs = document.getElementsByClassName('booking-date-inp')
+let labels = document.getElementsByClassName('booking-date-label')
+let discount_flag = false;
 
 for (const poster of posters) {
     poster.addEventListener('click', (e) => {

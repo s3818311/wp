@@ -18,11 +18,20 @@ else
 
 $boilerplate = <<<BOILERPLATE
 <header>
-    <div>
-        <a href="index.php#">
-            <span>Cinemax</span>
-        </a>
-        <p>ABN: 00 123 456 789</p>
+    <div class="row" id="header-row">
+        <div class="col-md-6">
+            <a href="index.php#">
+                <span>Cinemax</span>
+            </a>
+        </div>
+        <div class="col-md-6">
+            <p>
+                ABN: 00 123 456 789<br>
+                Contact at: inquiries@cinemax.com<br>
+                0123456789<br>
+                123A Nguyen Van Linh, District 7, Ho Chi Minh City, Vietnam
+            </p>
+        </div>
     </div>
 </header>
 <section>
@@ -151,9 +160,6 @@ BOILERPLATE;
         </div>
         <div>
             <button id='toggleWireframeCSS' onclick='toggleWireframe()'>Toggle Wireframe CSS</button>
-            <form method="POST" action="index.php#">
-                <input type="submit" value="Reset current session" name='session-reset'>
-            </form>
         </div>
     </footer>
 </body>
