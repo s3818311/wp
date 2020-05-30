@@ -1,12 +1,12 @@
-let checkOutBtn = document.querySelector("#checkOutBtn")
+let checkOutBtn = document.getElementById("checkOutBtn")
 
-let tabcontent = document.querySelectorAll(".tabcontent")
+let tabcontent = document.getElementsByClassName("tabcontent")
 tabcontent[0].style.display = "block";
 for (let i = 1; i < tabcontent.length; i++)
     tabcontent[i].style.display = "none"
 
-let tablinks = document.querySelectorAll(".tablinks")
-tablinks.forEach(tablink => {
+let tablinks = document.getElementsByClassName("tablinks")
+for (const tablink of tablinks) {
     tablink.addEventListener('click', () => {
         for (let i = 0; i < tabcontent.length; i++)
             tabcontent[i].style.display = "none"
@@ -15,14 +15,4 @@ tablinks.forEach(tablink => {
         document.getElementById(tablink.innerHTML).style.display = 'block'
         tablink.classList.add("active")
     })
-});
-
-let categoryTable = document.querySelectorAll(".categoryRow")
-let categoryBtns = document.querySelectorAll(".categoryRow button")
-categoryBtns.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-        e.composedPath()[2].children[0].children[0].readOnly = false;
-        e.composedPath()[2].children[1].children[0].readOnly = false;
-    })
-});
-
+}
