@@ -134,6 +134,11 @@ div.col-md-6 img {
   min-height: 100vh;
 }
 
+.categoryRow img {
+  width: 100%;
+  height: auto;
+}
+
 /* Vertical tab styling from 
 https://www.w3schools.com/howto/howto_js_vertical_tabs.asp */
 /* Style the tab */
