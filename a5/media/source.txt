@@ -7,9 +7,10 @@ indexCarousel3.jpg - https://pixabay.com/photos/cpu-processor-chip-motherboard-4
 categoryCPU.jpg - https://pixabay.com/photos/amd-ryzen-processor-technology-4952189/
 categoryRAM.jpg - https://pixabay.com/photos/chips-card-chip-computer-data-20072/
 categoryGPU.jpg - https://pixabay.com/photos/mining-ethereum-market-digital-2648004/
-categoryPSU.jpg - https://pixabay.com/photos/computer-power-supply-wire-1168203/
+categoryPSU.jpg - https://pixabay.com/photos/power-supply-case-computer-psu-5209513/
 
-CPU images - https://amd.com and https://intel.com
+CPU images - https://amd.com, https://intel.com and https://amazon.com
 
+favicon.ico - http://www.iconarchive.com/show/small-n-flat-icons-by-paomedia/shop-icon.html
 
 Educational purposes only
