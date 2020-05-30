@@ -12,22 +12,7 @@ if (isset($_POST['session-reset'])) {
 
 if (!isset($_SESSION['login']['username']) || !isset($_SESSION['login']['password'])) header("Location: index.php#");
 
-$errMsg = "";
-if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    if (isset($_POST['category-submit'])) {
-        if (empty($_POST['category']['id']) || empty($_POST['category']['name']) || empty($_POST['category']['img_name'])) {
-            $errMsg = "Can't insert empty row data";
-        } else {
-            $id = mysqli_escape_string($conn, sanitizeInp($_POST['category']['id']));
-            $name = mysqli_escape_string($conn, sanitizeInp($_POST['category']['name']));
-            $img_name = mysqli_escape_string($conn, sanitizeInp($_POST['category']['img_name']));
-            $query = "INSERT INTO category VALUES ('{$id}', '{$name}', '{$img_name}')";
-            if (mysqli_query($conn, $query)) $errMsg = "Row added successfully";
-            else $errMsg = "Error: " . mysqli_error($conn);
-        }
-    }
-    mysqli_refresh($conn, MYSQLI_REFRESH_TABLES);
-}
+$errMsg = isset($_SESSION['errMsg']) ? $_SESSION['errMsg'] : "";
 
 ?>
 
@@ -88,6 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         </div>
 
         <div id="Categories" class="tabcontent">
+            <?php echo $errMsg ?>
             <table class="table table-hover table-bordered">
                 <thead>
                     <tr>
@@ -105,26 +91,28 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             echo "<tr class=\"categoryRow\">";
                             echo "<td>{$row['id']}</td>";
                             echo "<td>{$row['name']}</td>";
-                            echo "<td>{$row['img_name']}</td>";
+                            echo "<td><img src='./media/{$row['img_name']}'></td>";
                             echo "<td><button type=\"button\">Edit</button></td>";
-                            echo "<td><a href=\"delete.php?table=category&id={$row['id']}\">Delete</a></td>";
+                            echo "<td><a href=\"delete.php?table=category&id={$row['id']}&img={$row['img_name']}\">Delete</a></td>";
                             echo "</tr>";
                         }
                     } else echo "<tr><td colspan=5>No results found</td></tr>";
                     ?>
                 </tbody>
             </table>
-            <form action="admin.php#" method="POST">
+            <form action="add.php#" method="POST" enctype="multipart/form-data">
                 <table class="table table-hover table-bordered">
                     <tr class="categoryRow">
-                        <td>id: <input type="text" name="category[id]"></td>
-                        <td>name: <input type="text" name="category[name]"></td>
-                        <td>img_name: <input type="text" name="category[img_name]"></td>
-                        <td><button type="submit" name="category-submit">Add</button></td>
+                        <td>id: <input type="text" name="add[category][id]" required></td>
+                        <td>name: <input type="text" name="add[category][name]" required></td>
+                        <td>image:
+                            <input type="hidden" name="MAX_FILE_SIZE" value="200000" />
+                            <input type="file" name="category_img" id="category-img-inp" required>
+                        </td>
+                        <td><button type="submit" name="add[category-submit]">Add</button></td>
                     </tr>
                 </table>
             </form>
-            <?php echo $errMsg; ?>
         </div>
 
         <div id="Items" class="tabcontent">
