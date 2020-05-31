@@ -38,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             if (mysqli_query($conn, $query)) $_SESSION['category']['sucMsg'] = "Row added successfully";
             else $_SESSION['category']['errMsg'] = "Error: " . mysqli_error($conn);
         }
+
         unset($_POST['add']['category-submit']);
     } else if (isset($_POST['add']['item-submit'])) {
         $img = $_FILES['uploaded_img'];
@@ -61,6 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             if (mysqli_query($conn, $query)) $_SESSION['item']['sucMsg'] = "Row added successfully";
             else $_SESSION['item']['errMsg'] = "Error: " . mysqli_error($conn);
         }
+
         unset($_POST['add']['item-submit']);
     } else if (isset($_POST['add']['user-submit'])) {
         $id = mysqli_escape_string($conn, sanitizeInp($_POST['add']['user']['id']));
@@ -70,6 +72,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $query = "INSERT INTO admin VALUES ('{$id}', '{$username}', '{$password}')";
         if (mysqli_query($conn, $query)) $_SESSION['user']['sucMsg'] = "Row added successfully";
         else $_SESSION['user']['errMsg'] = "Error: " . mysqli_error($conn);
+
+        unset($_POST['add']['item-submit']);
     }
 }
 

@@ -106,7 +106,7 @@ $useSucMsg = isset($_SESSION['user']['sucMsg']) ?  $_SESSION['user']['sucMsg'] :
                             echo "<td>{$row['id']}</td>";
                             echo "<td>{$row['name']}</td>";
                             echo "<td><img src='./media/{$row['img_name']}'></td>";
-                            echo "<td><button type=\"button\">Edit</button></td>";
+                            echo "<td><a href=\"edit.php?table=category&id={$row['id']}\">Edit</a></td>";
                             echo "<td><a href=\"delete.php?table=category&id={$row['id']}&img={$row['img_name']}\">Delete</a></td>";
                             echo "</tr>";
                         }
@@ -167,7 +167,7 @@ $useSucMsg = isset($_SESSION['user']['sucMsg']) ?  $_SESSION['user']['sucMsg'] :
                             echo "<td>{$row['units_sold']}</td>";
                             echo "<td>{$row['price']}</td>";
                             echo "<td>{$row['description']}</td>";
-                            echo "<td><button type=\"button\">Edit</button></td>";
+                            echo "<td><a href=\"edit.php?table=item&id={$row['id']}\">Edit</a></td>";
                             echo "<td><a href=\"delete.php?table=item&id={$row['id']}&img={$row['img_name']}\">Delete</a></td>";
                             echo "</tr>";
                         }
@@ -236,7 +236,7 @@ $useSucMsg = isset($_SESSION['user']['sucMsg']) ?  $_SESSION['user']['sucMsg'] :
                             echo "<td>{$row['id']}</td>";
                             echo "<td>{$row['username']}</td>";
                             echo "<td>{$row['password']}</td>";
-                            echo "<td><button type=\"button\">Edit</button></td>";
+                            echo "<td><a href=\"edit.php?table=admin&id={$row['id']}\">Edit</a></td>";
                             echo "<td><a href=\"delete.php?table=admin&id={$row['id']}\">Delete</a></td>";
                             echo "</tr>";
                         }
@@ -251,11 +251,11 @@ $useSucMsg = isset($_SESSION['user']['sucMsg']) ?  $_SESSION['user']['sucMsg'] :
                         <td><input type="text" name="add[user][id]" required></td>
                     </tr>
                     <tr>
-                        <th scope="row">display_name</th>
+                        <th scope="row">username</th>
                         <td><input type="text" name="add[user][username]" required></td>
                     </tr>
                     <tr>
-                        <th scope="row">category_id</th>
+                        <th scope="row">password</th>
                         <td><input type="password" name="add[user][password]" required></td>
                     </tr>
                     <tr>

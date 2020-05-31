@@ -224,7 +224,8 @@ div.col-md-6 img {
 }
 
 .tabcontent input[type="text"],
-.tabcontent textarea {
+.tabcontent textarea,
+.tabcontent input[type="password"] {
   width: 100%;
 }
 
