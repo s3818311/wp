@@ -1,5 +1,5 @@
 <?php
-include "tools.php";
+include_once "tools.php";
 session_start();
 
 if (isset($_POST['session-reset'])) {
@@ -12,7 +12,14 @@ if (isset($_POST['session-reset'])) {
 
 if (!isset($_SESSION['login']['username']) || !isset($_SESSION['login']['password'])) header("Location: index.php#");
 
-$errMsg = isset($_SESSION['errMsg']) ? $_SESSION['errMsg'] : "";
+$catErrMsg = isset($_SESSION['category']['errMsg']) ? ("An error occurred: " . $_SESSION['category']['errMsg']) : "";
+$catSucMsg = isset($_SESSION['category']['sucMsg']) ?  $_SESSION['category']['sucMsg'] : "";
+
+$iteErrMsg = isset($_SESSION['item']['errMsg']) ? ("An error occurred: " . $_SESSION['item']['errMsg']) : "";
+$iteSucMsg = isset($_SESSION['item']['sucMsg']) ?  $_SESSION['item']['sucMsg'] : "";
+
+$useErrMsg = isset($_SESSION['user']['errMsg']) ? ("An error occurred: " . $_SESSION['user']['errMsg']) : "";
+$useSucMsg = isset($_SESSION['user']['sucMsg']) ?  $_SESSION['user']['sucMsg'] : "";
 
 ?>
 
@@ -22,7 +29,7 @@ $errMsg = isset($_SESSION['errMsg']) ? $_SESSION['errMsg'] : "";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minimal Shop</title>
+    <title>Your Personal Computer</title>
 
     <!-- Linking Bootstrap -->
     <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -57,7 +64,13 @@ $errMsg = isset($_SESSION['errMsg']) ? $_SESSION['errMsg'] : "";
                 <li class="nav-item">
                     <a class="nav-link" href="index.php#">Home</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="browse.php#">Browse</a>
+                </li>
             </ul>
+            <form action="checkout.php#">
+                <button class="btn btn-outline-success mr-1 my-2 my-sm-0" type="submit" id="checkOutBtn">🛒</button>
+            </form>
             <form action="index.php#" method="POST">
                 <button class="btn btn-outline-danger my-2 my-sm-0" type="submit" name="admin-logout">Log Out</button>
             </form>
@@ -65,7 +78,7 @@ $errMsg = isset($_SESSION['errMsg']) ? $_SESSION['errMsg'] : "";
     </nav>
 
 
-    <section id="admin-tables">
+    <section id="admin-tables" class="container-fluid">
         <div class="tab">
             <button class="tablinks active">Categories</button>
             <button class="tablinks">Items</button>
@@ -73,13 +86,14 @@ $errMsg = isset($_SESSION['errMsg']) ? $_SESSION['errMsg'] : "";
         </div>
 
         <div id="Categories" class="tabcontent">
-            <?php echo $errMsg ?>
+            <?php echo "<p class=\"err\">" . $catErrMsg . "</p>" ?>
+            <?php echo "<p class=\"suc\">" . $catSucMsg . "</p>" ?>
             <table class="table table-hover table-bordered">
                 <thead>
                     <tr>
                         <th scope="col">id</th>
                         <th scope="col">name</th>
-                        <th scope="col">img_name</th>
+                        <th scope="col">image</th>
                         <th scope="col"></th>
                         <th scope="col"></th>
                     </tr>
@@ -88,7 +102,7 @@ $errMsg = isset($_SESSION['errMsg']) ? $_SESSION['errMsg'] : "";
                     <?php
                     if (mysqli_num_rows($category_table) > 0) {
                         while ($row = mysqli_fetch_assoc($category_table)) {
-                            echo "<tr class=\"categoryRow\">";
+                            echo "<tr class=\"adminTableRow\">";
                             echo "<td>{$row['id']}</td>";
                             echo "<td>{$row['name']}</td>";
                             echo "<td><img src='./media/{$row['img_name']}'></td>";
@@ -102,28 +116,155 @@ $errMsg = isset($_SESSION['errMsg']) ? $_SESSION['errMsg'] : "";
             </table>
             <form action="add.php#" method="POST" enctype="multipart/form-data">
                 <table class="table table-hover table-bordered">
-                    <tr class="categoryRow">
-                        <td>id: <input type="text" name="add[category][id]" required></td>
-                        <td>name: <input type="text" name="add[category][name]" required></td>
-                        <td>image:
-                            <input type="hidden" name="MAX_FILE_SIZE" value="200000" />
-                            <input type="file" name="category_img" id="category-img-inp" required>
+                    <tr>
+                        <th scope="row">id</td>
+                        <td><input type="text" name="add[category][id]" required></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">name</th>
+                        <td><input type="text" name="add[category][name]" required></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">image</th>
+                        <td>
+                            <input type="hidden" name="MAX_FILE_SIZE" value="200000">
+                            <input type="file" name="uploaded_img" id="category-img-inp" required>
                         </td>
-                        <td><button type="submit" name="add[category-submit]">Add</button></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><button type="submit" name="add[category-submit]">Add</button></td>
                     </tr>
                 </table>
             </form>
         </div>
 
         <div id="Items" class="tabcontent">
-            <h3>Paris</h3>
-            <p>Paris is the capital of France.</p>
+            <?php echo "<p class=\"err\">" . $iteErrMsg . "</p>" ?>
+            <?php echo "<p class=\"suc\">" . $iteSucMsg . "</p>" ?>
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">display_name</th>
+                        <th scope="col">category_id</th>
+                        <th scope="col">image</th>
+                        <th scope="col">units_sold</th>
+                        <th scope="col">price</th>
+                        <th scope="col">description</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    if (mysqli_num_rows($item_table) > 0) {
+                        while ($row = mysqli_fetch_assoc($item_table)) {
+                            echo "<tr class=\"adminTableRow\">";
+                            echo "<td>{$row['id']}</td>";
+                            echo "<td>{$row['display_name']}</td>";
+                            echo "<td>{$row['category_id']}</td>";
+                            echo "<td><img src='./media/{$row['img_name']}'></td>";
+                            echo "<td>{$row['units_sold']}</td>";
+                            echo "<td>{$row['price']}</td>";
+                            echo "<td>{$row['description']}</td>";
+                            echo "<td><button type=\"button\">Edit</button></td>";
+                            echo "<td><a href=\"delete.php?table=item&id={$row['id']}&img={$row['img_name']}\">Delete</a></td>";
+                            echo "</tr>";
+                        }
+                    } else echo "<tr><td colspan=8>No results found</td></tr>";
+                    ?>
+                </tbody>
+            </table>
+            <form action="add.php#" method="POST" enctype="multipart/form-data">
+                <table class="table table-hover table-bordered">
+                    <tr>
+                        <th scope="row">id</th>
+                        <td><input type="text" name="add[item][id]" required></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">display_name</th>
+                        <td><input type="text" name="add[item][display_name]" required></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">category_id</th>
+                        <td><input type="text" name="add[item][category_id]" required></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">image</th>
+                        <td>
+                            <input type="hidden" name="MAX_FILE_SIZE" value="200000" />
+                            <input type="file" name="uploaded_img" id="item-img-inp" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">units_sold</th>
+                        <td><input type="text" name="add[item][units_sold]" required></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">price</th>
+                        <td><input type="text" name="add[item][price]" required></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">description<br>(each line starts with &amp;bull; and delimits with &lt;br&gt;)</th>
+                        <td><textarea type="text" name="add[item][description]" required></textarea></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input type="submit" name="add[item-submit]" value="Add"></td>
+                    </tr>
+                </table>
+            </form>
         </div>
 
         <div id="Users" class="tabcontent">
-            <h3>Tokyo</h3>
-            <p>Tokyo is the capital of Japan.</p>
+            <?php echo "<p class=\"err\">" . $useErrMsg . "</p>" ?>
+            <?php echo "<p class=\"suc\">" . $useSucMsg . "</p>" ?>
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">username</th>
+                        <th scope="col">password</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    if (mysqli_num_rows($admin_table) > 0) {
+                        while ($row = mysqli_fetch_assoc($admin_table)) {
+                            echo "<tr class=\"adminTableRow\">";
+                            echo "<td>{$row['id']}</td>";
+                            echo "<td>{$row['username']}</td>";
+                            echo "<td>{$row['password']}</td>";
+                            echo "<td><button type=\"button\">Edit</button></td>";
+                            echo "<td><a href=\"delete.php?table=admin&id={$row['id']}\">Delete</a></td>";
+                            echo "</tr>";
+                        }
+                    } else echo "<tr><td colspan=5>No results found</td></tr>";
+                    ?>
+                </tbody>
+            </table>
+            <form action="add.php#" method="POST" enctype="multipart/form-data">
+                <table class="table table-hover table-bordered">
+                    <tr>
+                        <th scope="row">id</th>
+                        <td><input type="text" name="add[user][id]" required></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">display_name</th>
+                        <td><input type="text" name="add[user][username]" required></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">category_id</th>
+                        <td><input type="password" name="add[user][password]" required></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input type="submit" name="add[user-submit]" value="Add"></td>
+                    </tr>
+                </table>
+            </form>
         </div>
+
     </section>
 
     <footer>

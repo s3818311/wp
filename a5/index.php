@@ -1,6 +1,6 @@
 <?php
-include "tools.php";
 session_start();
+include_once "tools.php";
 
 if (isset($_POST['session-reset']) || isset($_POST['admin-logout'])) {
     $reset_flag = session_destroy();
@@ -87,7 +87,7 @@ if (isset($_POST['session-reset']) || isset($_POST['admin-logout'])) {
         <div id="categories" class="row">
             <?php
             while ($row = mysqli_fetch_assoc($category_table)) {
-                echo "<a href=\"browse.php?category_id={$row["id"]}\" class=\"col-md-4\">";
+                echo "<a href=\"browse.php?category={$row["name"]}\" class=\"col-md-4\">";
                 echo getHtmlCard($row["name"], $row["img_name"]);
                 echo "</a>";
             }

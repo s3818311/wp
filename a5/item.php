@@ -1,5 +1,5 @@
 <?php
-include "tools.php";
+include_once "tools.php";
 session_start();
 
 if (isset($_POST['session-reset']) || isset($_POST['admin-logout'])) {
@@ -71,46 +71,26 @@ if (isset($_POST['session-reset']) || isset($_POST['admin-logout'])) {
             <?php
             $category = mysqli_query($conn, "SELECT name FROM category WHERE id = '{$_GET['category_id']}'");
             $category = mysqli_fetch_assoc($category)['name'];
-            $itemInfo = mysqli_query($conn, "SELECT * FROM item I, {$category} C WHERE I.id = '{$_GET['item']}' AND C.id = I.id;");
+            $itemInfo = mysqli_query($conn, "SELECT * FROM item I WHERE I.id = '{$_GET['item']}'");
             $row = mysqli_fetch_assoc($itemInfo);
-            $info_arr = [];
-
-            if ($category == "CPU") {
-                $overclockable = ((bool) $row['overclockable']) ? "Yes" : "No";
-                $base_clock = numToStr($row['base_clock']);
-                $boost_clock = numToStr($row['max_boost_clock']);
-
-                $info_arr = [
-                    "Number of cores" => $row['cores'],
-                    "Number of threads" => $row['threads'],
-                    "Unlocked/Overclockable" => $overclockable,
-                    "Base clock" => $base_clock . "GHz",
-                    "Max Boost Clock" => $boost_clock . "GHz",
-                    "Integrated Graphics" => $row['igpu'],
-                    "TDP" => $row['tdp'] . "W",
-                    "Socket" => $row['socket']
-                ];
-            } else if ($category == "Motherboard") {
-            } else if ($category == "GPU") {
-            } else if ($category == "RAM") {
-            }
 
             echo "<div class=\"col-md-6\">";
             echo "    <img src=\"./media/{$row['img_name']}\" alt=\"{$row['display_name']}\">";
             echo "</div>";
             echo "<div class=\"col-md-6\">";
             echo "    <h2>{$row['display_name']}</h2>";
-            echo "    <ul>";
-            foreach ($info_arr as $field => $value)
-                echo "<li>{$field}: {$value}</li>";
-            echo "    </ul>";
+            echo "<p><em>{$category}</em></p>";
+            echo "<p id=\"item-desc\">{$row['description']}</p>";
             ?>
             <form action="checkout.php#" method="POST" id="itemForm">
+                <input type="hidden" name="item[name]" value="<?php echo $row['display_name'] ?>">
                 <label for="price">Price: $</label>
-                <input type="text" value="<?php echo $row['price'] ?>" id="price" name="price" readonly>
-                <label for="amount">Amount</label>
-                <input type="number" name="itemAmount" id="amount" max="10" min="0">
-                <input type="submit" value="Add to cart">
+                <input type="text" value="<?php echo $row['price'] ?>" id="price" name="item[price]" readonly>
+                <br>
+                <label for="amount">Amount: </label>
+                <input type="number" name="item[amount]" id="amount" max="10" min="1" required>
+                <br>
+                <input type="submit" name="item[submit]" value="Add to cart">
             </form>
             <?php echo "</div>"; ?>
         </div>

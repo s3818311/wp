@@ -1,5 +1,5 @@
 <?php
-include "tools.php";
+include_once "tools.php";
 session_start();
 
 if (isset($_POST['session-reset']) || isset($_POST['admin-logout'])) {
@@ -66,6 +66,30 @@ if (isset($_POST['session-reset']) || isset($_POST['admin-logout'])) {
         </div>
     </nav>
 
+    <section class="container-fluid">
+        <div id="filter-btn-container" class="row">
+            <button class="filter-btn col" id="all">Show all</button>
+            <?php
+            while ($row = mysqli_fetch_assoc($category_table))
+                echo "<button class=\"filter-btn col\" id=\"{$row['name']}\">{$row['name']}</button>";
+            ?>
+        </div>
+
+        <div id="filter-div-container" class="row">
+            <?php
+            while ($row = mysqli_fetch_assoc($item_table)) {
+                $category = mysqli_query($conn, "SELECT name FROM category WHERE id='{$row['category_id']}'");
+                $category_name = mysqli_fetch_assoc($category)['name'];
+                echo "<a href=\"item.php?category_id={$row["category_id"]}&item={$row["id"]}\" class=\"col-md-4 card {$category_name} no-hover\">";
+                echo "    <img src=\"./media/{$row['img_name']}\" alt=\"{$category_name}\">";
+                echo "    <div class=\"card-overlay\">";
+                echo "        <div class=\"card-caption\">{$row['display_name']}</div>";
+                echo "    </div>";
+                echo "</a>";
+            }
+            ?>
+        </div>
+    </section>
 
     <footer>
         <div>
