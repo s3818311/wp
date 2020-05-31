@@ -38,3 +38,13 @@ function closeSqlConn($sqlConn)
 {
     mysqli_close($sqlConn);
 }
+
+function checkInpErr($rawInp, $fieldName, $validated)
+{
+    if (empty($rawInp)) return [1, "Please enter your {$fieldName}"];
+    else if ($validated) return [0, sanitizeInp($rawInp)];
+    else {
+        $rawInp = sanitizeInp($rawInp);
+        return [2, $rawInp];
+    }
+}

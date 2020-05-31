@@ -2,14 +2,6 @@
 include_once "tools.php";
 session_start();
 
-if (isset($_POST['session-reset'])) {
-    $reset_flag = session_destroy();
-    if ($reset_flag) {
-        unset($_POST['session-reset']);
-        header("Location: index.php#");
-    } else exit("Session failed to reset");
-}
-
 if (!isset($_SESSION['login']['username']) || !isset($_SESSION['login']['password'])) header("Location: index.php#");
 
 if ($_SERVER['REQUEST_METHOD'] == "GET")
@@ -165,7 +157,7 @@ else if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         echo "<td><input type=\"file\" name=\"uploaded_img\"></td>";
                         echo "<td><input type=\"text\" value=\"{$row['units_sold']}\" name=\"edit[item][units_sold]\"></td>";
                         echo "<td><input type=\"text\" value=\"{$row['price']}\" name=\"edit[item][price]\"></td>";
-                        echo "<td><input type=\"text\" value=\"{$row['description']}\" name=\"edit[item][description]\"></td>";
+                        echo "<td><textarea type\"text\" value=\"{$row['description']}\" name=\"edit[item][description]\"></textarea></td>";
                     } else if ($_GET['table'] == 'admin') {
                         echo "<td><input type=\"text\" value=\"{$row['id']}\" name=\"edit[user][id]\"></td>";
                         echo "<td><input type=\"text\" value=\"{$row['username']}\" name=\"edit[user][username]\"></td>";

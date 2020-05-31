@@ -1,15 +1,6 @@
 <?php
 session_start();
 include_once "tools.php";
-
-if (isset($_POST['session-reset']) || isset($_POST['admin-logout'])) {
-    $reset_flag = session_destroy();
-    if ($reset_flag) {
-        unset($_POST['session-reset']);
-        header("Location: index.php#");
-    } else exit("Session failed to reset");
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -83,7 +74,7 @@ if (isset($_POST['session-reset']) || isset($_POST['admin-logout'])) {
     </section>
 
     <section id="category-section" class="container-fluid">
-        <div class="section-header"><span>Categories</span></div>
+        <div class="section-header"><span>CATEGORIES</span></div>
         <div id="categories" class="row">
             <?php
             while ($row = mysqli_fetch_assoc($category_table)) {
@@ -96,7 +87,7 @@ if (isset($_POST['session-reset']) || isset($_POST['admin-logout'])) {
     </section>
 
     <section id="topselling-section" class="container-fluid">
-        <div class="section-header"><span>Top Selling Products</span></div>
+        <div class="section-header"><span>TOP SELLING PRODUCTS</span></div>
         <div id="topselling" class="row">
             <?php
             while ($row = mysqli_fetch_assoc($topselling_table)) {
@@ -107,14 +98,6 @@ if (isset($_POST['session-reset']) || isset($_POST['admin-logout'])) {
             ?>
         </div>
     </section>
-
-    <footer>
-        <div>
-            <form method="POST">
-                <input type="submit" value="Reset current session" name='session-reset'>
-            </form>
-        </div>
-    </footer>
 </body>
 
 </html>

@@ -2,14 +2,6 @@
 include_once "tools.php";
 session_start();
 
-if (isset($_POST['session-reset'])) {
-    $reset_flag = session_destroy();
-    if ($reset_flag) {
-        unset($_POST['session-reset']);
-        header("Location: index.php#");
-    } else exit("Session failed to reset");
-}
-
 $usernameInp = isset($_POST['login']['username']) ? $_POST['login']['username'] : $_SESSION['login']['username'];
 $passwordInp = isset($_POST['login']['password']) ? $_POST['login']['password'] : $_SESSION['login']['password'];
 $userInpErr = "";
@@ -119,15 +111,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </form>
         </div>
     </section>
-
-    <footer>
-        <div>
-            <form method="POST">
-                <input type="submit" value="Reset current session" name='session-reset'>
-            </form>
-        </div>
-    </footer>
-
 </body>
 
 </html>

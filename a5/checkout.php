@@ -2,13 +2,19 @@
 session_start();
 include_once "tools.php";
 
-if (isset($_POST['session-reset']) || isset($_POST['admin-logout'])) {
-    $reset_flag = session_destroy();
-    if ($reset_flag) {
-        unset($_POST['session-reset']);
-        header("Location: index.php#");
-    } else exit("Session failed to reset");
-}
+$nameErr = "";
+$nameInp = isset($_POST['cust']['name']) ? $_POST['cust']['name'] : $_SESSION['cust']['name'];
+// ----------
+$emailErr = "";
+$emailInp = isset($_POST['cust']['email']) ? $_POST['cust']['email'] : $_SESSION['cust']['email'];
+// ----------
+$mobileErr = "";
+$mobileInp = isset($_POST['cust']['phone']) ? $_POST['cust']['phone'] : $_SESSION['cust']['phone'];
+// ----------
+$creditErr = "";
+$creditInp = isset($_POST['cust']['card']) ? $_POST['cust']['card'] : $_SESSION['cust']['card'];
+// ----------
+$generalErr = "";
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (isset($_POST['item']['submit'])) {
@@ -25,7 +31,70 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (isset($_POST['remove-item']))
         array_splice($_SESSION['cart'], $_POST['remove']['idx'], 1);
 
-    if (isset($_POST['order']['submit'])) echo "Order has been processed!";
+    if (isset($_POST['order']['submit'])) {
+        if (sizeof($_SESSION['cart']) > 0)
+            $generalErr = "Cart is empty";
+        else {
+            $nameCheck = checkInpErr($nameInp, "name", preg_match("/^[a-z \-\']+$/i", $nameInp));
+            switch ($nameCheck[0]) {
+                case 0:
+                    $nameInp = $nameCheck[1];
+                    $_SESSION['cust']['name'] = $nameInp;
+                    break;
+                case 1:
+                    $nameErr = $nameCheck[1];
+                    break;
+                case 2:
+                    $nameInp = $nameCheck[1];
+                    $nameErr = "Only letters, whitespaces, apostrophes(') and hypens(-) are allowed";
+                    break;
+            }
+
+            $emailCheck = checkInpErr($emailInp, "email", filter_var($emailInp, FILTER_VALIDATE_EMAIL));
+            switch ($emailCheck[0]) {
+                case 0:
+                    $emailInp = $emailCheck[1];
+                    $_SESSION['cust']['email'] = $emailInp;
+                    break;
+                case 1:
+                    $emailErr = $emailCheck[1];
+                    break;
+                case 2:
+                    $emailInp = $emailCheck[1];
+                    $emailErr = "Invalid email format";
+                    break;
+            }
+            $mobileCheck = checkInpErr($mobileInp, "mobile", preg_match("/^(\d\s*){9,10}$/", $mobileInp));
+            switch ($mobileCheck[0]) {
+                case 0:
+                    $mobileInp = $mobileCheck[1];
+                    $_SESSION['cust']['mobile'] = $mobileInp;
+                    break;
+                case 1:
+                    $mobileErr = $mobileCheck[1];
+                    break;
+                case 2:
+                    $mobileInp = $mobileCheck[1];
+                    $mobileErr = "Invalid mobile number format";
+                    break;
+            }
+
+            $creditCheck = checkInpErr($creditInp, "credit card number", preg_match("/^(\d\s*\-*){14,19}$/", $creditInp));
+            switch ($creditCheck[0]) {
+                case 0:
+                    $creditInp = $creditCheck[1];
+                    $_SESSION['cust']['card'] = $creditInp;
+                    break;
+                case 1:
+                    $creditErr = $creditCheck[1];
+                    break;
+                case 2:
+                    $creditInp = $creditCheck[1];
+                    $creditErr = "Invalid credit card format";
+                    break;
+            }
+        }
+    }
 }
 ?>
 
@@ -143,20 +212,34 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             <label for="name">Name</label>
                         </div>
                         <div class='col'>
-                            <input type="text" name="cust[name]" id="name" required>
+                            <input type="text" name="cust[name]" id="name" required <?php echo "value=\"{$nameInp}\" ";
+                                                                                    if ($nameErr !== "") echo "class=\"err-input\""; ?>>
                         </div>
                     </div>
+                    <?php if ($nameErr !== "") echo "<div class=\"row err\">{$nameErr}</div>" ?>
                     <div class="row">
                         <div class='col'>
                             <label for="phone">Phone number</label>
                         </div>
                         <div class='col'>
-                            <input type="tel" name="cust[phone]" id="phone" required>
+                            <input type="tel" name="cust[phone]" id="phone" required <?php echo "value=\"{$mobileInp}\" ";
+                                                                                        if ($mobileErr !== "") echo "class=\"err-input\""; ?>>
                         </div>
                     </div>
+                    <?php if ($mobileErr !== "") echo "<div class=\"row err\">{$mobileErr}</div>" ?>
                     <div class="row">
                         <div class='col'>
-                            <label for="phone">Address</label>
+                            <label for="email">Email</label>
+                        </div>
+                        <div class='col'>
+                            <input type="text" name="cust[email]" id="email" required <?php echo "value=\"{$emailInp}\" ";
+                                                                                        if ($emailErr !== "") echo "class=\"err-input\""; ?>>
+                        </div>
+                    </div>
+                    <?php if ($emailErr !== "") echo "<div class=\"err row\">{$emailErr}</div>" ?>
+                    <div class="row">
+                        <div class='col'>
+                            <label for="address">Address</label>
                         </div>
                         <div class='col'>
                             <input type="text" name="cust[address]" id="address" required>
@@ -164,29 +247,25 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     </div>
                     <div class="row">
                         <div class='col'>
-                            <label for="phone">Credit card number</label>
+                            <label for="card">Credit card number</label>
                         </div>
                         <div class='col'>
-                            <input type="text" name="cust[address]" id="address" required>
+                            <input type="text" name="cust[card]" id="card" required <?php echo "value=\"{$creditInp}\" ";
+                                                                                    if ($creditErr !== "") echo "class=\"err-input\""; ?>>
                         </div>
                     </div>
+                    <?php if ($creditErr !== "") echo "<div class=\"err row\">{$creditErr}</div>" ?>
                     <div class="row">
                         <div class='col'>
                             <input type="submit" name="order[submit]" value="Order">
                         </div>
                     </div>
                 </form>
+                <?php if ($generalErr !== "") echo "<div class=\"err row\">{$generalErr}</div>" ?>
             </div>
         </div>
     </section>
 
-    <footer>
-        <div>
-            <form method="POST">
-                <input type="submit" value="Reset current session" name='session-reset'>
-            </form>
-        </div>
-    </footer>
 </body>
 
 </html>

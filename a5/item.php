@@ -1,15 +1,6 @@
 <?php
 include_once "tools.php";
 session_start();
-
-if (isset($_POST['session-reset']) || isset($_POST['admin-logout'])) {
-    $reset_flag = session_destroy();
-    if ($reset_flag) {
-        unset($_POST['session-reset']);
-        header("Location: index.php#");
-    } else exit("Session failed to reset");
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -95,13 +86,6 @@ if (isset($_POST['session-reset']) || isset($_POST['admin-logout'])) {
             <?php echo "</div>"; ?>
         </div>
     </section>
-    <footer>
-        <div>
-            <form method="POST">
-                <input type="submit" value="Reset current session" name='session-reset'>
-            </form>
-        </div>
-    </footer>
 </body>
 
 </html>

@@ -2,14 +2,6 @@
 include_once "tools.php";
 session_start();
 
-if (isset($_POST['session-reset'])) {
-    $reset_flag = session_destroy();
-    if ($reset_flag) {
-        unset($_POST['session-reset']);
-        header("Location: index.php#");
-    } else exit("Session failed to reset");
-}
-
 if (!isset($_SESSION['login']['username']) || !isset($_SESSION['login']['password'])) header("Location: index.php#");
 
 $catErrMsg = isset($_SESSION['category']['errMsg']) ? ("An error occurred: " . $_SESSION['category']['errMsg']) : "";
@@ -266,14 +258,6 @@ $useSucMsg = isset($_SESSION['user']['sucMsg']) ?  $_SESSION['user']['sucMsg'] :
         </div>
 
     </section>
-
-    <footer>
-        <div>
-            <form method="POST">
-                <input type="submit" value="Reset current session" name='session-reset'>
-            </form>
-        </div>
-    </footer>
 </body>
 
 </html>

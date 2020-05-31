@@ -2,14 +2,6 @@
 include_once "tools.php";
 session_start();
 
-if (isset($_POST['session-reset'])) {
-    $reset_flag = session_destroy();
-    if ($reset_flag) {
-        unset($_POST['session-reset']);
-        header("Location: index.php#");
-    } else exit("Session failed to reset");
-}
-
 if (!isset($_SESSION['login']['username']) || !isset($_SESSION['login']['password'])) header("Location: index.php#");
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
